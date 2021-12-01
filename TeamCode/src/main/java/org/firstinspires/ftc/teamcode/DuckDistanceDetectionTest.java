@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name="distance Detect")
-@Disabled
 public class DuckDistanceDetectionTest extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
@@ -21,8 +20,9 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-     waitForStart();
-     int location = barcodeDetect();
+    robot.init(hardwareMap);
+    waitForStart();
+    int location = barcodeDetect();
 
     }
 
