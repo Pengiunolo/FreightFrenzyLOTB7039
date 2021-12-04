@@ -10,42 +10,73 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name="distance Detect")
+@Autonomous(name="distance Detect test")
 public class DuckDistanceDetectionTest extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
-    public static boolean seenObject = false;
+    public boolean seenObject = false;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
     robot.init(hardwareMap);
+    telemetry.speak("TEST");
+
     waitForStart();
-    int location = barcodeDetect();
 
-    }
-
-
-
-    public int barcodeDetect(){
-        int count = 0;
         int Location = 0;
-        for (int i = 0;  i < 4; i++ ){
-            count ++;
-            if (robot.LeftDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
-                Location = count;
+        for (int i = 0;  i < 3; i++ ){
+
+            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
+                Location = i+1;
                 seenObject = true;
-                encoderDrive(0.5,8,-8,8,-8,3);
             }else if(seenObject == true){
                 break;
             }else{
-
+                encoderDrive(0.5,-8,8,-8,8,3);
             }
         }
 
-        return Location;
+        switch(Location){
+            case 1: telemetry.addLine("location 1");
+                    telemetry.speak("e");
+                    telemetry.update();
+                break;
+            case 2: telemetry.addLine("location 2");
+                    telemetry.speak("e");
+                    telemetry.update();
+                break;
+            case 3: telemetry.addLine("location 3");
+                    telemetry.speak("e");
+                    telemetry.update();
+                break;
+            default: telemetry.addLine("no object found");
+                     telemetry.speak("no update found");
+                     telemetry.update();
+        }
+
     }
+
+
+
+//    public int barcodeDetect(){
+//        int count = 0;
+//        int Location = 0;
+//        for (int i = 0;  i < 4; i++ ){
+//            count ++;
+//            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
+//                Location = count;
+//                seenObject = true;
+//                encoderDrive(0.5,8,-8,8,-8,3);
+//            }else if(seenObject == true){
+//                break;
+//            }else{
+//
+//            }
+//        }
+
+
     public void encoderDrive(double speed,
                              double Back_Left_Inches,
                              double Back_Right_Inches,
@@ -96,8 +127,8 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.Back_Left.getCurrentPosition(),
                         robot.Back_Right.getCurrentPosition());
-                robot.Front_Left.getCurrentPosition();
-                robot.Front_Right.getCurrentPosition();
+                        robot.Front_Left.getCurrentPosition();
+                        robot.Front_Right.getCurrentPosition();
                 telemetry.update();
             }
 

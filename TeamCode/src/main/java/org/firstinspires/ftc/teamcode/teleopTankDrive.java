@@ -38,11 +38,11 @@ public class teleopTankDrive extends LinearOpMode{
             }
 
             if(gamepad1.x){
-                robot.Sweeper.setPower(-0.3);
+                robot.Sweeper.setPosition(-0.3);
             } else if(gamepad1.b){
-                robot.Sweeper.setPower(0.3);
+                robot.Sweeper.setPosition(0.3);
             } else {
-                robot.Sweeper.setPower(0);
+                robot.Sweeper.setPosition(0);
             }
 
             if (gamepad1.dpad_left){
@@ -52,7 +52,7 @@ public class teleopTankDrive extends LinearOpMode{
             }
 
             if(gamepad1.dpad_down){
-                robot.Sweeper.setPower(0);
+                
                 robot.allMotorPower(0);
                 robot.Slider.setPower(0);
                 robot.Spinner.setPower(0);
