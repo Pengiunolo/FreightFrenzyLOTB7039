@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Autonomous(name="distance Detect test")
 public class DuckDistanceDetectionTest extends LinearOpMode {
     zanehardware robot = new zanehardware();
-    private ElapsedTime runtime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
 
     public boolean seenObject = false;
 
