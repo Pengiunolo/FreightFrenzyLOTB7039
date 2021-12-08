@@ -12,7 +12,7 @@ public class LeraningHardware {
     public DcMotor Back_Right;
 
     HardwareMap hwMap = null;
-    private ElapsedTime period = new ElapsedTime();
+    private final ElapsedTime period = new ElapsedTime();
 
     public void init(HardwareMap ahwmap){
         hwMap = ahwmap;

@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class teachingAutomous extends LinearOpMode {
      //adds object robot of type hardware
      LeraningHardware robot = new LeraningHardware();
-     private ElapsedTime runtime = new ElapsedTime();
+     private final ElapsedTime runtime = new ElapsedTime();
      //declares speed
      static final double TurnSpeed = 0.2;
      static final double ForwardSpeed = 0.4;
