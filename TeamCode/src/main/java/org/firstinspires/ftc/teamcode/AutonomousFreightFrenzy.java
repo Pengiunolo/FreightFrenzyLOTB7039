@@ -35,7 +35,7 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH = 45.24877651;
+    static final double     COUNTS_PER_INCH = 122.600924;
             //first hundred digits of pi fr more accuracy
 
 
@@ -164,7 +164,8 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, moveLength, moveLength, moveLength);
+        //encoderDriveWithoutTime(0.3, moveLength, moveLength, moveLength, moveLength);
+        encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
@@ -196,7 +197,8 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
     private void robotMoveToShippingElement(double tmpmoveLength) {
         telemetry.addData("Going toward Shipping Element", tmpmoveLength);
         telemetry.update();
-        encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
+        //encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
+        encoderDriveWithTime(0.3,1,1,1,1,10);
     }
 
 
@@ -204,7 +206,8 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
     private void strafeLeft(double moveLength) {
         telemetry.addData("Strafe Left: ", moveLength);
         telemetry.update();
-        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
+        //encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
+        encoderDriveWithTime(0.3,-1,1,-1,1,2);
     }
 
     private void strafeRight(double moveLength) {
@@ -272,6 +275,81 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
                 robot.Front_Left.getCurrentPosition();
                 robot.Front_Right.getCurrentPosition();
                 telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Back_Left.setPower(0);
+            robot.Back_Right.setPower(0);
+            robot.Front_Left.setPower(0);
+            robot.Front_Right.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+
+    }
+    public void encoderDriveWithTime(double speed,
+                             double Back_Left_Inches,
+                             double Back_Right_Inches,
+                             double Front_Right_Inches,
+                             double Front_Left_Inches,
+                             double timeoutS) {
+        int newLeftBottomTarget;
+        int newRightBottomTarget;
+        int newRightTopTarget;
+        int newLeftTopTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            double COUNTS_PER_INCH = 122.600924;
+            newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
+            newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * COUNTS_PER_INCH);
+            newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
+            newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
+
+            /*robot.Back_Left.setTargetPosition(newLeftBottomTarget);
+            robot.Back_Right.setTargetPosition(newRightBottomTarget);
+            robot.Front_Right.setTargetPosition(newRightTopTarget);
+            robot.Front_Left.setTargetPosition(newLeftTopTarget);*/
+
+            // Turn On RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Back_Left.setPower(Math.abs(speed));
+            robot.Back_Right.setPower(Math.abs(speed));
+            robot.Front_Left.setPower(Math.abs(speed));
+            robot.Front_Right.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS))  {
+                    //&&(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();
+
+
+                telemetry.update();*/
+                sleep(100);
             }
 
             // Stop all motion;
