@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.opencv.core.Core;
@@ -29,7 +30,7 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
-    zanehardware robot = new zanehardware();
+    Saketzanehardware robot = new Saketzanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
@@ -81,6 +82,9 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+
+
+
 
 
             double moveLength = 28;
@@ -195,10 +199,10 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
     }
 
     private void robotMoveToShippingElement(double tmpmoveLength) {
-        telemetry.addData("Going toward Shipping Element", tmpmoveLength);
+        telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
         //encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
-        encoderDriveWithTime(0.3,1,1,1,1,10);
+        encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
 
@@ -316,10 +320,10 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
             newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
 
-            /*robot.Back_Left.setTargetPosition(newLeftBottomTarget);
+            robot.Back_Left.setTargetPosition(newLeftBottomTarget);
             robot.Back_Right.setTargetPosition(newRightBottomTarget);
             robot.Front_Right.setTargetPosition(newRightTopTarget);
-            robot.Front_Left.setTargetPosition(newLeftTopTarget);*/
+            robot.Front_Left.setTargetPosition(newLeftTopTarget);
 
             // Turn On RUN_TO_POSITION
             robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -336,8 +340,9 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS))  {
-                    //&&(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+                    (runtime.seconds() < timeoutS)) {
+                    //&&
+                    //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
 
                 // Display it for the driver.
                 /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
@@ -345,11 +350,11 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
                         robot.Back_Left.getCurrentPosition(),
                         robot.Back_Right.getCurrentPosition());
                 robot.Front_Left.getCurrentPosition();
-                robot.Front_Right.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("testing","123");
 
 
-                telemetry.update();*/
-                sleep(100);
+                telemetry.update();
             }
 
             // Stop all motion;
@@ -363,6 +368,367 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
             robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void encoderDriveWithTimeForward(
+                                     double timeoutS,
+                                     double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            // Turn On RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Back_Left.setPower(-speed);
+            robot.Back_Right.setPower(-speed);
+            robot.Front_Left.setPower(-speed);
+            robot.Front_Right.setPower(-speed);
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Going Forward for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Back_Left.setPower(0);
+            robot.Back_Right.setPower(0);
+            robot.Front_Left.setPower(0);
+            robot.Front_Right.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void encoderDriveWithTimeBackward(
+            double timeoutS,
+            double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            /*robot.Back_Right.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.Front_Left.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.Front_Right.setDirection(DcMotorSimple.Direction.FORWARD);*/
+
+
+            // Turn On RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Back_Left.setPower(speed);
+            robot.Back_Right.setPower(speed);
+            robot.Front_Left.setPower(speed);
+            robot.Front_Right.setPower(speed);
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Going Backward for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Back_Left.setPower(0);
+            robot.Back_Right.setPower(0);
+            robot.Front_Left.setPower(0);
+            robot.Front_Right.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void encoderDriveWithTimeLeft(
+            double timeoutS,
+            double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            /*robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.Front_Left.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.Back_Left.setDirection(DcMotorSimple.Direction.FORWARD);*/
+
+            // Turn On RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Back_Left.setPower(-speed);
+            robot.Back_Right.setPower(speed);
+            robot.Front_Left.setPower(speed);
+            robot.Front_Right.setPower(-speed);
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Going Left for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Back_Left.setPower(0);
+            robot.Back_Right.setPower(0);
+            robot.Front_Left.setPower(0);
+            robot.Front_Right.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void encoderDriveWithTimeRight(
+            double timeoutS,
+            double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            /*robot.Back_Right.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.Front_Right.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);*/
+
+            // Turn On RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Back_Left.setPower(speed);
+            robot.Back_Right.setPower(-speed);
+            robot.Front_Left.setPower(-speed);
+            robot.Front_Right.setPower(speed);
+
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Going Right for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Back_Left.setPower(0);
+            robot.Back_Right.setPower(0);
+            robot.Front_Left.setPower(0);
+            robot.Front_Right.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.Back_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Back_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            robot.Front_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void spinLeft(
+            double timeoutS,
+            double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            // Turn On RUN_TO_POSITION
+            robot.Spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Spinner.setPower(speed);
+
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Spinning for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Spinner.setPower(0);
+
+
+            // Turn off RUN_TO_POSITION
+            robot.Spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+            //  sleep(250);   // optional pause after each move
+
+        }
+    }
+    public void spinRight(
+            double timeoutS,
+            double speed) {
+
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+
+            // Determine new target position, and pass to motor controller
+            //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+            //robot.Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            // Turn On RUN_TO_POSITION
+            robot.Spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.Spinner.setPower(-speed);
+
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+
+                // Display it for the driver.
+                /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.Back_Left.getCurrentPosition(),
+                        robot.Back_Right.getCurrentPosition());
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();*/
+                telemetry.addData("Spinning for ", timeoutS - runtime.seconds());
+
+
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.Spinner.setPower(0);
+
+
+            // Turn off RUN_TO_POSITION
+            robot.Spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
             //  sleep(250);   // optional pause after each move
 
