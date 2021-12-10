@@ -33,7 +33,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
         int Location = 0;
         for (int i = 0;  i < 4; i++ ){
             count ++;
-            if (robot.LeftDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
+            /*if (robot.LeftDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
                 Location = count;
                 seenObject = true;
                 encoderDrive(0.5,8,-8,8,-8,3);
@@ -41,7 +41,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 break;
             }else{
 
-            }
+            }*/
         }
 
         return Location;

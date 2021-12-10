@@ -36,7 +36,7 @@ public class hardware {
         Left_Top = hwMap.get(DcMotor.class, "Left_Top");
 
         Left_Top.setDirection(DcMotor.Direction.REVERSE);
-        Left_Bottom.setDirection(DcMotor.Direction.REVERSE);
+        Right_Bottom.setDirection(DcMotor.Direction.REVERSE);
 
         Right_Bottom.setPower(0);
         Right_Top.setPower(0);

@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class zanehardware {
@@ -12,11 +14,15 @@ public class zanehardware {
     public DcMotor Front_Right;
     public DcMotor Back_Left;
     public DcMotor Back_Right;
+    public DcMotor Slider;
     public DcMotor Spinner;
     public DistanceSensor LeftDistance;
     public DistanceSensor RightDistance;
+    public Servo Grabber;
+    public Servo Sweeper;
+
     HardwareMap hwMap = null;
-    private ElapsedTime period = new ElapsedTime();
+    private final ElapsedTime period = new ElapsedTime();
 
     public void init(HardwareMap ahwmap){
         hwMap = ahwmap;
@@ -26,10 +32,17 @@ public class zanehardware {
         Back_Left = hwMap.get(DcMotor.class,"Back_Left");
         Back_Right = hwMap.get(DcMotor.class,"Back_Right");
         Spinner = hwMap.get(DcMotor.class,"Spinner");
-        LeftDistance = hwMap.get(DistanceSensor.class,"fDistance");
+        Slider = hwMap.get(DcMotor.class,"Slider");
+        Sweeper = hwMap.get(Servo.class,"Sweeper");
+        Grabber = hwMap.get(Servo.class,"Grabber");
+        LeftDistance = hwMap.get(DistanceSensor.class,"ldistance");
+        RightDistance = hwMap.get(DistanceSensor.class,"rdistance");
+
+
+
 
         //reverse motors
-        Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
         Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
     }
     public void allMotorPower(double power){
@@ -48,5 +61,6 @@ public class zanehardware {
         Front_Right.setPower(power);
         Back_Right.setPower(power);
     }
+
 
 }

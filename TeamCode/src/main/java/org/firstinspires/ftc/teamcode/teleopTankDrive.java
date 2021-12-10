@@ -20,13 +20,13 @@ public class teleopTankDrive extends LinearOpMode{
             robot.rightMotorPower(gamepad1.right_stick_y);
 
             //spinner controls
-            if(gamepad1.a){
+            /*if(gamepad1.a){
                 robot.Spinner.setPower(-0.3);
             } else if(gamepad1.y){
                 robot.Spinner.setPower(0.3);
             } else {
                 robot.Spinner.setPower(0);
-            }
+            }*/
         }
 
     }
