@@ -1,67 +1,26 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name="distance Detect test")
-public class DuckDistanceDetectionTest extends LinearOpMode {
+@Autonomous(name="Encoder Test")
+public class encoderTest extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private final ElapsedTime runtime = new ElapsedTime();
 
-    public boolean seenObject = false;
+
 
 
     @Override
     public void runOpMode() throws InterruptedException {
     robot.init(hardwareMap);
-    telemetry.speak("TEST is working");
-
     waitForStart();
+    encoderDrive(0.5,5,5,5,5,3);
 
-        int Location = 3;
-        for (int i = 0;  i < 3; i++ ){
-
-            if ( robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18){
-                Location = i;
-                break;
-            }else{
-
-                encoderDrive(0.5,-8,8,-8,8,3);
-            }
-        }
-        switch(Location){
-            case 0: telemetry.addLine("location 1");
-                telemetry.speak("Location equals" + Location);
-
-                telemetry.update();
-                sleep(2000);
-                break;
-            case 1: telemetry.addLine("location 2");
-                telemetry.speak(String.valueOf(Location));
-                    telemetry.update();
-                sleep(2000);
-
-                break;
-            case 2: telemetry.addLine("location 3");
-                telemetry.speak(String.valueOf(Location));
-                    telemetry.update();
-                sleep(2000);
-
-                break;
-            default: telemetry.addLine("no object found");
-                     telemetry.speak("no OBJECT found");
-                     telemetry.update();
-                sleep(2000);
-
-                break;
-        }
 
     }
 
@@ -83,10 +42,6 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 //            }
 //        }
 
-
-    public zanehardware getRobot() {
-        return robot;
-    }
 
     public void encoderDrive(double speed,
                              double Back_Left_Inches,
@@ -140,8 +95,6 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                         robot.Back_Right.getCurrentPosition());
                         robot.Front_Left.getCurrentPosition();
                         robot.Front_Right.getCurrentPosition();
-
-
                 telemetry.update();
             }
 
