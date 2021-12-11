@@ -43,7 +43,7 @@ public class teleopTankDrive extends LinearOpMode {
             } else if (gamepad1.a) {
                 robot.Slider.setPower(0.7);
             } else {
-                robot.Slider.setPower(0);
+                robot.Slider.setPower(0.1);
             }
 
             if (gamepad1.x) {
@@ -81,31 +81,31 @@ public class teleopTankDrive extends LinearOpMode {
 //                robot.Front_Right.setPower(-.6);
         }
         //This is the Strafe
-//        if (gamepad1.right_stick_x >= 0.5) {
-////            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            robot.Front_Right.setPower(.6);
-//            robot.Back_Right.setPower(.6);
-//
-//            robot.Front_Left.setPower(.6);
-//            robot.Back_Left.setPower(.6);
-//        }
-//        //This is the Strafe
-//        // --Speeds changed by Coach 12/13/19
-//        if (gamepad1.left_stick_x >= -0.5) {
-////            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-////            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            robot.Front_Right.setPower(-.6);
-//            robot.Back_Right.setPower(-.6);
-//
-//            robot.Front_Left.setPower(-.6);
-//            robot.Back_Left.setPower(-.6);
+        if (gamepad1.right_stick_x >= 0.5) {
+//            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Front_Right.setPower(.6);
+            robot.Back_Right.setPower(-.6);
 
-//        }
+            robot.Front_Left.setPower(-.6);
+            robot.Back_Left.setPower(.6);
+        }
+        //This is the Strafe
+        // --Speeds changed by Coach 12/13/19
+        if (gamepad1.left_stick_x >= -0.5) {
+//            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.Front_Right.setPower(-.6);
+            robot.Back_Right.setPower(.6);
+
+            robot.Front_Left.setPower(.6);
+            robot.Back_Left.setPower(-.6);
+
+        }
     }
 
 }
