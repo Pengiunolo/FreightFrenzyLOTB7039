@@ -1,70 +1,78 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name="distance Detect test")
+@Autonomous(name = "distance Detect test")
 public class DuckDistanceDetectionTest extends LinearOpMode {
-    zanehardware robot = new zanehardware();
     private final ElapsedTime runtime = new ElapsedTime();
-
-    public boolean seenObject = false;
-
+    zanehardware robot = new zanehardware();
 
     @Override
     public void runOpMode() throws InterruptedException {
-    robot.init(hardwareMap);
-    telemetry.speak("TEST is working");
+        robot.init(hardwareMap);
+        telemetry.speak("TEST is working");
 
-    waitForStart();
+        waitForStart();
 
-        int Location = 3;
-        for (int i = 0;  i < 3; i++ ){
+        int Location = 0;
+        for (int i = 0; i < 3; i++) {
 
-            if ( robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18){
-                Location = i;
+            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18) {
+                Location = i + 1;
                 break;
-            }else{
+            } else {
 
-                encoderDrive(0.5,-8,8,-8,8,3);
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 1000);
+                //encoderDrive(0.5,-8,8,-8,8,3);
+
             }
         }
-        switch(Location){
-            case 0: telemetry.addLine("location 1");
+        switch (Location) {
+            case 1:
+                telemetry.addLine("location 1");
                 telemetry.speak("Location equals" + Location);
-
                 telemetry.update();
-                sleep(2000);
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 4000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
                 break;
-            case 1: telemetry.addLine("location 2");
+            case 2:
+                telemetry.addLine("location 2");
                 telemetry.speak(String.valueOf(Location));
-                    telemetry.update();
-                sleep(2000);
-
+                telemetry.update();
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 3000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
                 break;
-            case 2: telemetry.addLine("location 3");
+            case 3:
+                telemetry.addLine("location 3");
                 telemetry.speak(String.valueOf(Location));
-                    telemetry.update();
-                sleep(2000);
-
+                telemetry.update();
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 2000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
                 break;
-            default: telemetry.addLine("no object found");
-                     telemetry.speak("no OBJECT found");
-                     telemetry.update();
+            default:
+                telemetry.addLine("no object found");
+                telemetry.speak("no OBJECT found");
+                telemetry.update();
                 sleep(2000);
 
                 break;
         }
 
     }
-
 
 
 //    public int barcodeDetect(){
@@ -84,10 +92,6 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 //        }
 
 
-    public zanehardware getRobot() {
-        return robot;
-    }
-
     public void encoderDrive(double speed,
                              double Back_Left_Inches,
                              double Back_Right_Inches,
@@ -105,8 +109,8 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             double COUNTS_PER_INCH = 122.600924;
-            newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * COUNTS_PER_INCH);
+            newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int) (Back_Left_Inches * COUNTS_PER_INCH);
+            newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int) (Back_Right_Inches * COUNTS_PER_INCH);
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
             newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
 
@@ -134,12 +138,12 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                     (robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftBottomTarget, newRightBottomTarget, newLeftTopTarget, newRightTopTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.Back_Left.getCurrentPosition(),
                         robot.Back_Right.getCurrentPosition());
-                        robot.Front_Left.getCurrentPosition();
-                        robot.Front_Right.getCurrentPosition();
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();
 
 
                 telemetry.update();
