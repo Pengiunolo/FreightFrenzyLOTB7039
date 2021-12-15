@@ -21,14 +21,14 @@ public class teleopTankDrive extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             //tank controls
-                robot.leftMotorPower(gamepad1.left_stick_y);
+            robot.leftMotorPower(gamepad1.left_stick_y);
 
 
-                robot.rightMotorPower(gamepad1.right_stick_y);
+            robot.rightMotorPower(gamepad1.right_stick_y);
 
-        telemetry.addData("Right Stick x",gamepad1.right_stick_x);
-        telemetry.addData("Left Stick x",gamepad1.left_stick_x);
-        telemetry.update();
+            telemetry.addData("Right Stick x", gamepad1.right_stick_x);
+            telemetry.addData("Left Stick x", gamepad1.left_stick_x);
+            telemetry.update();
             //spinner controls
             if (gamepad1.right_trigger == 1) {
                 robot.Spinner.setPower(-0.3);
@@ -68,46 +68,47 @@ public class teleopTankDrive extends LinearOpMode {
             }
 
             //controls
-//            while (gamepad1.right_stick_x == -1 && gamepad1.right_stick_y == 1) {
-//                robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Front_Left.setPower(.6);
-//                robot.Back_Right.setPower(.6);
-//            }
-//            while (gamepad1.left_stick_x == 1 && gamepad1.left_stick_y == 1) {
-//                robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Left.setPower(-.6);
-//                robot.Front_Right.setPower(-.6);
-        }
-        //This is the Strafe
-        if (gamepad1.right_stick_x >= 0.5) {
+            while (gamepad1.right_stick_x == -1 && gamepad1.right_stick_y == 1) {
+                robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Front_Left.setPower(.6);
+                robot.Back_Right.setPower(.6);
+            }
+            while (gamepad1.left_stick_x == 1 && gamepad1.left_stick_y == 1) {
+                robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.Back_Left.setPower(-.6);
+                robot.Front_Right.setPower(-.6);
+            }
+            //This is the Strafe
+            if (gamepad1.right_stick_x >= 0.5) {
 //            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setPower(.6);
-            robot.Back_Right.setPower(-.6);
+                robot.Front_Right.setPower(.6);
+                robot.Back_Right.setPower(-.6);
 
-            robot.Front_Left.setPower(-.6);
-            robot.Back_Left.setPower(.6);
-        }
-        //This is the Strafe
-        // --Speeds changed by Coach 12/13/19
-        if (gamepad1.left_stick_x >= -0.5) {
+                robot.Front_Left.setPower(-.6);
+                robot.Back_Left.setPower(.6);
+            }
+            //This is the Strafe
+            // --Speeds changed by Coach 12/13/19
+            if (gamepad1.left_stick_x >= -0.5) {
 //            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setPower(-.6);
-            robot.Back_Right.setPower(.6);
+                robot.Front_Right.setPower(-.6);
+                robot.Back_Right.setPower(.6);
 
-            robot.Front_Left.setPower(.6);
-            robot.Back_Left.setPower(-.6);
+                robot.Front_Left.setPower(.6);
+                robot.Back_Left.setPower(-.6);
 
+            }
         }
+
     }
-
 }
 
 
