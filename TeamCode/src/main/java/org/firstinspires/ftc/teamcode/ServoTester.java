@@ -18,6 +18,8 @@ public class ServoTester extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         telemetry.speak("TEST is working");
+
+        //you can change what servo is referring to here
         servo = robot.Sweeper;
 
         waitForStart();
