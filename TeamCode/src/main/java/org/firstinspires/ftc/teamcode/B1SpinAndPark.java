@@ -89,7 +89,7 @@ public class B1SpinAndPark extends LinearOpMode {
             sleep(100);
             encoderDriveWithTimeForward(2.7,.5);
             sleep(100);
-            spinRight(5, .3);
+            spinRight(7, .3);
             sleep(100);
             encoderDriveWithTimeLeft(.4,.5);
             sleep(100);

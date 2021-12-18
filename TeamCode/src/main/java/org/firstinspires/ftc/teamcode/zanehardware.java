@@ -42,8 +42,9 @@ public class zanehardware {
 
 
         //reverse motors
-        //Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+        Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+
     }
     public void allMotorPower(double power){
         Front_Left.setPower(power);
@@ -61,18 +62,6 @@ public class zanehardware {
         Front_Right.setPower(power);
         Back_Right.setPower(power);
     }
-    public void driveByTime(double leftFrontMotorPower, double rightFrontMotorPower,
-                            double leftBackMotorPower, double rightBackMotorPower, int time){
-        Front_Left.setPower(leftFrontMotorPower);
-        Front_Right.setPower(rightFrontMotorPower);
-        Back_Left.setPower(leftBackMotorPower);
-        Back_Right.setPower(rightBackMotorPower);
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        allMotorPower(0);
-    }
+
 
 }
