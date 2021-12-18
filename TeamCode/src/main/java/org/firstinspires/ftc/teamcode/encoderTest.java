@@ -19,7 +19,8 @@ public class encoderTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
     robot.init(hardwareMap);
     waitForStart();
-    encoderDrive(0.5,5,5,5,5,3);
+        encoderDrive(0.5,5,5,5,5,3);
+        encoderDrive(0.5,-5,-5,-5,-5,3);
 
 
     }

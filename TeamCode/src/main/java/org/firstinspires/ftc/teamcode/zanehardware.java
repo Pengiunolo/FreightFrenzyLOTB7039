@@ -64,4 +64,15 @@ public class zanehardware {
     }
 
 
+    public void driveByTime(double FrontLeftPower, double FrontRightPower, double BackLeftPower, double BackRightPower, int time) {
+        Front_Left.setPower(FrontLeftPower);
+        Front_Right.setPower(FrontRightPower);
+        Back_Left.setPower(BackLeftPower);
+        Back_Right.setPower(BackRightPower);
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
