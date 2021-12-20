@@ -14,9 +14,9 @@ public class teleopTankDrivetesting extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
         //wait for start
         waitForStart();
         while (opModeIsActive()) {
