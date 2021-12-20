@@ -65,7 +65,13 @@ public class teleopTankDrivetesting extends LinearOpMode {
                 robot.Slider.setPower(0);
                 robot.Spinner.setPower(0);
             }
-
+            if (gamepad1.dpad_up){
+                robot.Slider.setPower(0);
+                sleep(750);
+                robot.Slider.setPower(0.7);
+                sleep(450);
+                robot.Slider.setPower(0.1);
+            }
             //controls
 //            while (gamepad1.right_stick_x == -1 && gamepad1.right_stick_y == 1) {
 //                robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
