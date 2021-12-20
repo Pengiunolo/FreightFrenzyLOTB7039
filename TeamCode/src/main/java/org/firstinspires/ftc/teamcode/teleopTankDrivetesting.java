@@ -21,9 +21,9 @@ public class teleopTankDrivetesting extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             //tank controls
-            robot.Back_Right.setPower(-gamepad1.left_stick_y);
+            robot.Back_Right.setPower(gamepad1.left_stick_y);
             robot.Back_Left.setPower(-gamepad1.right_stick_y);
-            robot.Front_Right.setPower(-gamepad1.left_stick_y);
+            robot.Front_Right.setPower(gamepad1.left_stick_y);
             robot.Front_Left.setPower(-gamepad1.right_stick_y);
 
 
