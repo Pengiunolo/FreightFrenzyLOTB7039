@@ -14,6 +14,8 @@ public class teleopTankDrivetesting extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
+        telemetry.addLine("this program is up to date");
+        telemetry.update();
         //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
         //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
         //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -21,10 +23,10 @@ public class teleopTankDrivetesting extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             //tank controls
-            robot.Back_Right.setPower(gamepad1.left_stick_y);
-            robot.Back_Left.setPower(-gamepad1.right_stick_y);
-            robot.Front_Right.setPower(gamepad1.left_stick_y);
-            robot.Front_Left.setPower(-gamepad1.right_stick_y);
+            robot.Back_Right.setPower(-gamepad1.left_stick_y);
+            robot.Back_Left.setPower(gamepad1.right_stick_y);
+            robot.Front_Right.setPower(-gamepad1.left_stick_y);
+            robot.Front_Left.setPower(gamepad1.right_stick_y);
 
 
             telemetry.addData("Right Stick x", gamepad1.right_stick_x);
