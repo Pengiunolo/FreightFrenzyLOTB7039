@@ -7,24 +7,27 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name="Encoder Test")
-public class encoderTest extends LinearOpMode {
-    zanehardware robot = new zanehardware();
+@Autonomous(name = "servo move test")
+public class servomove extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
-
-
-
+    zanehardware robot = new zanehardware();
 
     @Override
     public void runOpMode() throws InterruptedException {
-    robot.init(hardwareMap);
-    waitForStart();
-    encoderDrive(0.5,5,5,5,5,3);
-    encoderDrive(0.5,3,5,2,6,3);
+        robot.init(hardwareMap);
+        telemetry.speak("TEST is working");
+
+        waitForStart();
+
+        robot.Sweeper.setPosition(0.5);
+        sleep(1000);
+        robot.Sweeper.setPosition(0);
+
+
+
 
 
     }
-
 
 
 //    public int barcodeDetect(){
@@ -61,8 +64,8 @@ public class encoderTest extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             double COUNTS_PER_INCH = 122.600924;
-            newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * COUNTS_PER_INCH);
+            newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int) (Back_Left_Inches * COUNTS_PER_INCH);
+            newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int) (Back_Right_Inches * COUNTS_PER_INCH);
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
             newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
 
@@ -90,12 +93,14 @@ public class encoderTest extends LinearOpMode {
                     (robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftBottomTarget, newRightBottomTarget, newLeftTopTarget, newRightTopTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.Back_Left.getCurrentPosition(),
                         robot.Back_Right.getCurrentPosition());
-                        robot.Front_Left.getCurrentPosition();
-                        robot.Front_Right.getCurrentPosition();
+                robot.Front_Left.getCurrentPosition();
+                robot.Front_Right.getCurrentPosition();
+
+
                 telemetry.update();
             }
 

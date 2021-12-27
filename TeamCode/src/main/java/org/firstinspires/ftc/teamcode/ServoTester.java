@@ -22,7 +22,7 @@ public class ServoTester extends LinearOpMode {
         //you can change what servo is referring to here
         servo = robot.Sweeper;
 
-        waitForStart();
+        waitForStart(); 
 
         while (opModeIsActive()) {
             if (gamepad1.right_trigger == 1) {

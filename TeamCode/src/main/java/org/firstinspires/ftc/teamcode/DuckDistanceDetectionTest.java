@@ -62,6 +62,8 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 robot.allMotorPower(0.5);
                 sleep(1000);
                 robot.allMotorPower(0);
+                robot.leftMotorPower(-0.5);
+                robot.rightMotorPower(0.5);
                 break;
             default:
                 telemetry.addLine("no object found");
