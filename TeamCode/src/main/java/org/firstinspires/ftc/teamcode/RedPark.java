@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B2SpinAndPark extends LinearOpMode {
+public class RedPark extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -87,13 +87,8 @@ public class B2SpinAndPark extends LinearOpMode {
 
             encoderDriveWithTimeLeft(.5,.5);
             sleep(100);
-            encoderDriveWithTimeForward(7,.5);
+            encoderDriveWithTimeForward(3.7,1);
             sleep(100);
-            spinRight(7, .3);
-            sleep(100);
-            encoderDriveWithTimeLeft(.4,.5);
-            sleep(100);
-            encoderDriveWithTimeBackward(6,1);
             stop();
 
             double moveLength = 28;

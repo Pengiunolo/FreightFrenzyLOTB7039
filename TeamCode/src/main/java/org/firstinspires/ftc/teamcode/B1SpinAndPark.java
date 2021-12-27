@@ -29,7 +29,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
-    Saketzanehardware robot = new Saketzanehardware();
+    zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
@@ -89,7 +89,7 @@ public class B1SpinAndPark extends LinearOpMode {
             sleep(100);
             encoderDriveWithTimeForward(2.7,.5);
             sleep(100);
-            spinRight(5, .3);
+            spinRight(7, .3);
             sleep(100);
             encoderDriveWithTimeLeft(.4,.5);
             sleep(100);
@@ -382,7 +382,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeForward(
+    public void encoderDriveWithTimeBackward(
                                      double timeoutS,
                                      double speed) {
 
@@ -445,7 +445,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeBackward(
+    public void encoderDriveWithTimeForward(
             double timeoutS,
             double speed) {
 
@@ -508,7 +508,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeLeft(
+    public void encoderDriveWithTimeRight(
             double timeoutS,
             double speed) {
 
@@ -571,7 +571,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeRight(
+    public void encoderDriveWithTimeLeft(
             double timeoutS,
             double speed) {
 
