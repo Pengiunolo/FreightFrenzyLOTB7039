@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -11,15 +12,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class DuckDistanceDetectionTest extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
-
+    int Location = 0;
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        telemetry.speak("TEST is working");
+        //revese the motor direction for this program
+        //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.Front_Left.setDirection(DcMotorSimple.Direction.FORWARD);
+        //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+        //robot.Back_Left.setDirection(DcMotorSimple.Direction.FORWARD);
 
         waitForStart();
 
-        int Location = 0;
+// make sure to have the encoder statements reversed
+
         for (int i = 0; i < 3; i++) {
 
             if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18) {
@@ -27,8 +33,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 break;
             } else {
 
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 1000);
-                //encoderDrive(0.5,-8,8,-8,8,3);
+                encoderDrive(0.5,-8,8,-8,8,1);
 
             }
         }
@@ -37,33 +42,19 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 telemetry.addLine("location 1");
                 telemetry.speak("Location equals" + Location);
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 4000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
+                encoderDrive(0.6,-24,24,-24,24,4);
                 break;
             case 2:
                 telemetry.addLine("location 2");
                 telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 3000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
+                encoderDrive(0.6,-16,16,-16,16,3);
                 break;
             case 3:
                 telemetry.addLine("location 3");
                 telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 2000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
-                robot.leftMotorPower(-0.5);
-                robot.rightMotorPower(0.5);
+                encoderDrive(0.6,-8,8,-8,8,2);
                 break;
             default:
                 telemetry.addLine("no object found");
@@ -93,6 +84,22 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 //            }
 //        }
 
+     void spinAndPlace(){
+        encoderDrive(0.5,4,4,4,4,2);
+        encoderDrive(0.5,-18,18,18,-18,2);
+
+         switch (Location){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+     }
+
 
     public void encoderDrive(double speed,
                              double Back_Left_Inches,
@@ -107,7 +114,6 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
-
 
             // Determine new target position, and pass to motor controller
             double COUNTS_PER_INCH = 122.600924;

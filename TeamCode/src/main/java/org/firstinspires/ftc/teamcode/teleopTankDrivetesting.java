@@ -17,9 +17,6 @@ public class teleopTankDrivetesting extends LinearOpMode {
         telemetry.addLine("this program is up to date");
         telemetry.update();
         telemetry.speak("Why Is This Not Working!!!!!!!");
-        //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        //robot.Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
         //wait for start
         waitForStart();
         while (opModeIsActive()) {
@@ -49,7 +46,13 @@ public class teleopTankDrivetesting extends LinearOpMode {
             } else {
                 robot.Slider.setPower(0.1);
             }
-
+            if (gamepad1.dpad_up){
+                robot.Slider.setPower(0);
+                sleep(500);
+                robot.Slider.setPower(0.5);
+                sleep(250);
+                robot.Slider.setPower(0.1);
+            }
             if (gamepad1.x) {
                 robot.Sweeper.setPosition(1);
             } else if (gamepad1.b) {
@@ -89,17 +92,8 @@ public class teleopTankDrivetesting extends LinearOpMode {
 //                robot.Front_Right.setPower(-.6);
 //        }
             //This is the Strafe
-
-            while (gamepad1.left_bumper) {
-//                robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            /*robot.Front_Right.setPower(.6);
-            robot.Back_Right.setPower(-.6);
-
-            robot.Front_Left.setPower(-.6);
-            robot.Back_Left.setPower(.6);*/
+            //strafe right
+            while (gamepad1.right_stick_x >= 0.5) {
 
                 robot.Back_Left.setPower(0.6);
                 robot.Back_Right.setPower(-0.6);
@@ -108,11 +102,8 @@ public class teleopTankDrivetesting extends LinearOpMode {
             }
             //This is the Strafe
             // --Speeds changed by Coach 12/13/19
-            while (gamepad1.right_bumper) {
-//                robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //strafe left
+            while (gamepad1.left_stick_x <= -0.5) {
                 robot.Front_Right.setPower(-.6);
                 robot.Back_Right.setPower(.6);
 

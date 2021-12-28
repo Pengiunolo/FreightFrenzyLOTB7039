@@ -16,7 +16,7 @@ public class zanehardware {
     public DcMotor Back_Right;
     public DcMotor Slider;
     public DcMotor Spinner;
-    public DistanceSensor LeftDistance;
+//    public DistanceSensor LeftDistance;
     public DistanceSensor RightDistance;
     public Servo Grabber;
     public Servo Sweeper;
@@ -35,17 +35,17 @@ public class zanehardware {
         Slider = hwMap.get(DcMotor.class,"Slider");
         Sweeper = hwMap.get(Servo.class,"Sweeper");
         Grabber = hwMap.get(Servo.class,"Grabber");
-        LeftDistance = hwMap.get(DistanceSensor.class,"ldistance");
+//        LeftDistance = hwMap.get(DistanceSensor.class,"ldistance");
         RightDistance = hwMap.get(DistanceSensor.class,"rdistance");
 
 
 
 
         //reverse motors
-        //Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
-        Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+        Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+//        Front_Left.setDirection(DcMotorSimple.Direction.REVERSE);
+        Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+//        Back_Left.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     public void allMotorPower(double power){
