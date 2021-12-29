@@ -33,7 +33,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 break;
             } else {
 
-                encoderDrive(0.5,8,-8,8,-8,1);
+                encoderDrive(0.5,8,-8,8,-8,0.5);
 
             }
         }
