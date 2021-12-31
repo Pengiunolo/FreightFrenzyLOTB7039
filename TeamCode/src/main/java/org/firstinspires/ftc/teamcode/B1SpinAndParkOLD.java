@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B1SpinAndPark extends LinearOpMode {
+public class B1SpinAndParkOLD extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -35,7 +35,7 @@ public class B1SpinAndPark extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH = 45;
+    static final double     COUNTS_PER_INCH = 122.600924;
             //first hundred digits of pi fr more accuracy
 
 
@@ -87,26 +87,17 @@ public class B1SpinAndPark extends LinearOpMode {
 
             encoderDriveWithoutTime(.5,4,-4,4,-4);
             sleep(100);
-            encoderDriveWithoutTime(.3,26,26,26,26);
+            encoderDriveWithoutTime(.75,27,27,27,27);
             sleep(100);
-            spinLeft(5,.4);
+            spinRight(7,.4);
             sleep(100);
             encoderDriveWithoutTime(.5,3,-3,3,-3);
             sleep(100);
-            encoderDriveWithoutTime(.8,-107,-107,-107,-107);
+            encoderDriveWithoutTime(1,-102,-102,-102,-102);
             stop();
-            //encoderDriveWithoutTimeFrontLeft(1,5,5,5,5);
-            //encoderDriveWithoutTimeFrontRight(1,5,5,5,5);
-            //stop();
-            encoderDriveWithoutTime(.3,5,5,5,5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,-5,-5,-5,-5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,5,-5,5,-5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,-5,5,-5,5);
-            stop();
-            /*sleep(100);
+
+            /*encoderDriveWithTimeLeft(.5,.5);
+            sleep(100);
             encoderDriveWithTimeForward(2.7,.5);
             sleep(100);
             spinRight(7, .3);
@@ -114,7 +105,7 @@ public class B1SpinAndPark extends LinearOpMode {
             encoderDriveWithTimeLeft(.4,.5);
             sleep(100);
             encoderDriveWithTimeBackward(6,1);
-            stop();*/
+            stop(); */
 
             double moveLength = 28;
             int position = 1;
@@ -327,155 +318,6 @@ public class B1SpinAndPark extends LinearOpMode {
         }
 
     }
-    public void encoderDriveWithoutTimeFrontLeft ( double speed,
-                                          double Back_Left_Inches,
-                                          double Back_Right_Inches,
-                                          double Front_Right_Inches,
-                                          double Front_Left_Inches)
-    {
-        int newLeftBottomTarget;
-        int newRightBottomTarget;
-        int newRightTopTarget;
-        int newLeftTopTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            // Determine new target position, and pass to motor controller
-            //newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            //newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * (COUNTS_PER_INCH));
-            //newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
-            newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
-
-            telemetry.addData("Current Position : %7d", robot.Front_Left.getCurrentPosition());
-            telemetry.addData("New Position : %7d", newLeftTopTarget);
-            telemetry.update();
-            sleep(2000);
-            //robot.Back_Left.setTargetPosition(newLeftBottomTarget);
-            //robot.Back_Right.setTargetPosition(newRightBottomTarget);
-            //robot.Front_Right.setTargetPosition(newRightTopTarget);
-            robot.Front_Left.setTargetPosition(newLeftTopTarget);
-
-            // Turn On RUN_TO_POSITION
-            //robot.Back_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Back_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Front_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            //robot.Back_Left.setPower(Math.abs(speed));
-            //robot.Back_Right.setPower(Math.abs(speed));
-            robot.Front_Left.setPower(Math.abs(speed));
-            //robot.Front_Right.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (robot.Front_Left.isBusy() )) {
-
-                // Display it for the driver.
-                //telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path1",  "Running to %7d : ", newLeftTopTarget);
-                telemetry.addData("Path2",  "Running at %7d : ",
-                        robot.Front_Left.getCurrentPosition());
-                //robot.Front_Left.getCurrentPosition();
-                //robot.Front_Right.getCurrentPosition();
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            //robot.Back_Left.setPower(0);
-            //robot.Back_Right.setPower(0);
-            robot.Front_Left.setPower(0);
-            //robot.Front_Right.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-
-        }
-
-    }
-
-    public void encoderDriveWithoutTimeFrontRight ( double speed,
-                                                   double Back_Left_Inches,
-                                                   double Back_Right_Inches,
-                                                   double Front_Right_Inches,
-                                                   double Front_Left_Inches)
-    {
-        int newLeftBottomTarget;
-        int newRightBottomTarget;
-        int newRightTopTarget;
-        int newLeftTopTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            // Determine new target position, and pass to motor controller
-            //newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            //newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * (COUNTS_PER_INCH));
-            newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
-            //newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
-
-            telemetry.addData("Current Position : %7d", robot.Front_Right.getCurrentPosition());
-            telemetry.addData("New Position : %7d", newRightTopTarget);
-            telemetry.update();
-            sleep(2000);
-            //robot.Back_Left.setTargetPosition(newLeftBottomTarget);
-            //robot.Back_Right.setTargetPosition(newRightBottomTarget);
-            robot.Front_Right.setTargetPosition(newRightTopTarget);
-            //robot.Front_Left.setTargetPosition(newLeftTopTarget);
-
-            // Turn On RUN_TO_POSITION
-            //robot.Back_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Back_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Front_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            //robot.Back_Left.setPower(Math.abs(speed));
-            //robot.Back_Right.setPower(Math.abs(speed));
-            //robot.Front_Left.setPower(Math.abs(speed));
-            robot.Front_Right.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (robot.Front_Right.isBusy() )) {
-
-                // Display it for the driver.
-                //telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path1",  "Running to %7d : ", newRightTopTarget);
-                telemetry.addData("Path2",  "Running at %7d : ",
-                        robot.Front_Right.getCurrentPosition());
-                //robot.Front_Left.getCurrentPosition();
-                //robot.Front_Right.getCurrentPosition();
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            //robot.Back_Left.setPower(0);
-            //robot.Back_Right.setPower(0);
-            //robot.Front_Left.setPower(0);
-            robot.Front_Right.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-
-        }
-
-    }
     public void encoderDriveWithTime(double speed,
                              double Back_Left_Inches,
                              double Back_Right_Inches,
@@ -551,7 +393,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeForward(
+    public void encoderDriveWithTimeBackward(
                                      double timeoutS,
                                      double speed) {
 
@@ -614,7 +456,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeBackward(
+    public void encoderDriveWithTimeForward(
             double timeoutS,
             double speed) {
 
@@ -677,7 +519,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeLeft(
+    public void encoderDriveWithTimeRight(
             double timeoutS,
             double speed) {
 
@@ -740,7 +582,7 @@ public class B1SpinAndPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeRight(
+    public void encoderDriveWithTimeLeft(
             double timeoutS,
             double speed) {
 
