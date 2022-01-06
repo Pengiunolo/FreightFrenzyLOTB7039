@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -33,7 +35,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 break;
             } else {
 
-                encoderDrive(0.5,8,-8,8,-8,0.5);
+                encoderDrive(0.5,8,-8,8,-8,1);
 
             }
         }
@@ -116,7 +118,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            double COUNTS_PER_INCH = 122.600924;
+
             newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int) (Back_Left_Inches * COUNTS_PER_INCH);
             newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int) (Back_Right_Inches * COUNTS_PER_INCH);
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);

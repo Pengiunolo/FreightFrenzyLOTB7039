@@ -36,7 +36,6 @@ public class AllDirectionsTest extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH = 45;
-            //first hundred digits of pi fr more accuracy
 
 
     /**
