@@ -39,52 +39,38 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
             }
         }
+        if(Location != 0){
+            telemetry.speak("Location equals" + String.valueOf(Location));
+        }
         switch (Location) {
             case 1:
                 telemetry.addLine("location 1");
-                telemetry.speak("Location equals" + Location);
                 telemetry.update();
                 encoderDrive(0.6,-24,24,-24,24,4);
+                spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
-                telemetry.speak(String.valueOf(Location));
                 telemetry.update();
                 encoderDrive(0.6,-16,16,-16,16,3);
+                spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
-                telemetry.speak(String.valueOf(Location));
                 telemetry.update();
                 encoderDrive(0.6,-8,8,-8,8,2);
+                spinAndPlace();
                 break;
             default:
                 telemetry.addLine("no object found");
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
                 sleep(2000);
-
                 break;
         }
+        encoderDrive(0.8,60,60,-60,60,2);
 
     }
-
-
-//    public int barcodeDetect(){
-//        int count = 0;
-//        int Location = 0;
-//        for (int i = 0;  i < 4; i++ ){
-//            count ++;
-//            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
-//                Location = count;
-//                seenObject = true;
-//                encoderDrive(0.5,8,-8,8,-8,3);
-//            }else if(seenObject == true){
-//                break;
-//            }else{
-//
-//            }
-//        }
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
@@ -92,10 +78,13 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
          switch (Location){
             case 1:
+                printToPhone("placed block at location 1");
                 break;
             case 2:
+                printToPhone("placed block at location 2");
                 break;
             case 3:
+                printToPhone("placed block at location 3");
                 break;
             default:
                 break;
@@ -175,4 +164,9 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
         }
     }
+    void printToPhone(String Text){
+        telemetry.addLine(Text);
+        telemetry.update();
+    }
 }
+
