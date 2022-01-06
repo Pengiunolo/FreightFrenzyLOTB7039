@@ -46,34 +46,41 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
             case 1:
                 telemetry.addLine("location 1");
                 telemetry.update();
-                encoderDrive(0.6,-24,24,-24,24,4);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,40,-40,40,-40,4);
                 spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
                 telemetry.update();
-                encoderDrive(0.6,-16,16,-16,16,3);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,32,-32,32,-32,3);
                 spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
                 telemetry.update();
-                encoderDrive(0.6,-8,8,-8,8,2);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,24,-24,24,-24,2);
                 spinAndPlace();
                 break;
             default:
                 telemetry.addLine("no object found");
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
-                sleep(2000);
+                encoderDrive(0.6,1,1,1,1,0.5);
+
                 break;
         }
-        encoderDrive(0.8,60,60,-60,60,2);
+        encoderDrive(0.8,60,60,60,60,2);
 
     }
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
+        encoderDrive(0.5,-36,36,36,-36,4);
+        encoderDrive(0.5,-18,-18,-18,-18,2);
+        sleep(2000);
         encoderDrive(0.5,-18,18,18,-18,2);
 
          switch (Location){
