@@ -78,10 +78,10 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
-        encoderDrive(0.5,-36,36,36,-36,4);
-        encoderDrive(0.5,-18,-18,-18,-18,2);
+        encoderDrive(0.5,-40,40,40,-40,4);
+        encoderDrive(0.5,-16,-16,-16,-16,2);
         sleep(2000);
-        encoderDrive(0.5,-18,18,18,-18,2);
+        encoderDrive(0.5,20,-20,-20,20,2);
 
          switch (Location){
             case 1:
