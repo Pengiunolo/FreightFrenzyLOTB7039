@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class zanehardware {
 
+    public static final double COUNTS_PER_INCH = 46.2495654425;
     public DcMotor Front_Left;
     public DcMotor Front_Right;
     public DcMotor Back_Left;
@@ -26,7 +27,6 @@ public class zanehardware {
 
     public void init(HardwareMap ahwmap){
         hwMap = ahwmap;
-
         Front_Left = hwMap.get(DcMotor.class,"Front_Left");
         Front_Right = hwMap.get(DcMotor.class,"Front_Right");
         Back_Left = hwMap.get(DcMotor.class,"Back_Left");

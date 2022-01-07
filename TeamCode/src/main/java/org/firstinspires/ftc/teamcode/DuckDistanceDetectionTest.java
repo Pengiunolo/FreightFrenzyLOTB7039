@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,87 +39,59 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
             }
         }
-        if (Location != 0) {
+        if(Location != 0){
             telemetry.speak("Location equals" + String.valueOf(Location));
         }
-        
         switch (Location) {
             case 1:
                 telemetry.addLine("location 1");
-                //telemetry.speak("Location equals" + String.valueOf(Location));
                 telemetry.update();
-                encoderDrive(0.5,-24,24,-24,24,4);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,40,-40,40,-40,4);
                 spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
-                //telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                encoderDrive(0.5,-16,16,-16,16,3);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,32,-32,32,-32,3);
                 spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
-                //telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                encoderDrive(0.5,-8,8,-8,8,2);
+                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,24,-24,24,-24,2);
                 spinAndPlace();
                 break;
             default:
                 telemetry.addLine("no object found");
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
-                sleep(2000);
+                encoderDrive(0.6,1,1,1,1,0.5);
 
                 break;
         }
-
-        encoderDrive(0.5,-72,72,-72,72,5);
-
+        encoderDrive(0.8,60,60,60,60,2);
 
     }
 
-
-//    public int barcodeDetect(){
-//        int count = 0;
-//        int Location = 0;
-//        for (int i = 0;  i < 4; i++ ){
-//            count ++;
-//            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
-//                Location = count;
-//                seenObject = true;
-//                encoderDrive(0.5,8,-8,8,-8,3);
-//            }else if(seenObject == true){
-//                break;
-//            }else{
-//
-//            }
-//        }
-
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
-        encoderDrive(0.5,-18,18,18,-18,2);
+        encoderDrive(0.5,-40,40,40,-40,4);
+        encoderDrive(0.5,-16,-16,-16,-16,2);
+        sleep(2000);
+        encoderDrive(0.5,20,-20,-20,20,2);
 
          switch (Location){
             case 1:
-                robot.Slider.setPower(0.7);
-                sleep(100);
-                robot.Slider.setPower(0);
-                robot.Sweeper.setPosition(0);
-
+                printToPhone("placed block at location 1");
                 break;
             case 2:
-                robot.Slider.setPower(0.7);
-                sleep(500);
-                robot.Slider.setPower(0);
-                robot.Sweeper.setPosition(0);
-
+                printToPhone("placed block at location 2");
                 break;
             case 3:
-                robot.Slider.setPower(0.7);
-                sleep(1000);
-                robot.Slider.setPower(0);
-                robot.Sweeper.setPosition(0);
+                printToPhone("placed block at location 3");
                 break;
             default:
                 break;
@@ -140,7 +114,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            double COUNTS_PER_INCH = 122.600924;
+
             newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int) (Back_Left_Inches * COUNTS_PER_INCH);
             newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int) (Back_Right_Inches * COUNTS_PER_INCH);
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
@@ -197,4 +171,9 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
         }
     }
+    void printToPhone(String Text){
+        telemetry.addLine(Text);
+        telemetry.update();
+    }
 }
+
