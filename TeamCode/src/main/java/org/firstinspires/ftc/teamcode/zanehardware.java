@@ -77,4 +77,13 @@ public class zanehardware {
             Thread.currentThread().interrupt();
         }
     }
+    public void sliderMove(Double power,Long timeMS){
+     Slider.setPower(power);
+     try {
+         Thread.sleep(timeMS);
+     } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+     }
+     Slider.setPower(0.1);
+    }
 }

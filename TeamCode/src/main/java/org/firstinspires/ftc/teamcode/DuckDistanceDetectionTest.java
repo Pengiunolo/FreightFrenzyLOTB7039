@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "distance Detect test")
+@Autonomous(name = "Victors B1 automous")
 public class DuckDistanceDetectionTest extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
@@ -23,7 +23,8 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 //        robot.Front_Left.setDirection(DcMotorSimple.Direction.FORWARD);
         //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
 //        robot.Back_Left.setDirection(DcMotorSimple.Direction.FORWARD);
-
+        robot.sliderMove(0.8, 200l);
+        robot.Slider.setPower(0.1);
         waitForStart();
 
 // make sure to have the encoder statements reversed
@@ -42,25 +43,26 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
         if(Location != 0){
             telemetry.speak("Location equals" + String.valueOf(Location));
         }
+        encoderDrive(0.5,1,1,1,1,500);
         switch (Location) {
             case 1:
                 telemetry.addLine("location 1");
                 telemetry.update();
-                encoderDrive(0.6,1,1,1,1,0.5);
-                encoderDrive(0.6,40,-40,40,-40,4);
+//                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,36,-36,36,-36,4);
                 spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
                 telemetry.update();
-                encoderDrive(0.6,1,1,1,1,0.5);
-                encoderDrive(0.6,32,-32,32,-32,3);
+//                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,28,-28,28,-28,3);
                 spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
                 telemetry.update();
-                encoderDrive(0.6,1,1,1,1,0.5);
+//                encoderDrive(0.6,1,1,1,1,0.5);
                 encoderDrive(0.6,24,-24,24,-24,2);
                 spinAndPlace();
                 break;
@@ -68,7 +70,8 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 telemetry.addLine("no object found");
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
-                encoderDrive(0.6,1,1,1,1,0.5);
+                //encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.5,20,-20,-20,20,2);
 
                 break;
         }
@@ -78,24 +81,33 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
-        encoderDrive(0.5,-40,40,40,-40,4);
-        encoderDrive(0.5,-16,-16,-16,-16,2);
-        sleep(2000);
-        encoderDrive(0.5,20,-20,-20,20,2);
+        encoderDrive(0.5,-38,38,38,-38,4);
 
-         switch (Location){
-            case 1:
-                printToPhone("placed block at location 1");
-                break;
-            case 2:
-                printToPhone("placed block at location 2");
-                break;
-            case 3:
-                printToPhone("placed block at location 3");
-                break;
-            default:
-                break;
-        }
+        switch (Location){
+             case 1:
+                 robot.sliderMove(1d,3500l);
+//                 robot.Sweeper.setPosition(0);
+//                 encoderDrive(1,0.5,0.5,0.5,0.5,100);
+                 break;
+             case 2:
+                 robot.sliderMove(0.9,1500l);
+//                 robot.Sweeper.setPosition(0);
+//                 encoderDrive(1,0.5,0.5,0.5,0.5,100);
+                 break;
+
+             case 3:
+                 robot.sliderMove(0.9,1000l);
+//
+                 break;
+             default:
+                 break;
+         }
+         encoderDrive(0.3,-15,-15,-15,-15,3);
+         robot.Sweeper.setPosition(0);
+         encoderDrive(1,0.5,0.5,0.5,0.5,100);
+         encoderDrive(0.5,20,-20,-20,20,2);
+
+
      }
 
 
