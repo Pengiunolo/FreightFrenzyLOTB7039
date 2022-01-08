@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Teleop Tank Drive testing")
+@TeleOp(name = "Teleop Tank Drive Competition")
 public class teleopTankDrivetesting extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private final ElapsedTime runtime = new ElapsedTime();
@@ -14,9 +14,9 @@ public class teleopTankDrivetesting extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        telemetry.addLine("this program is up to date");
-        telemetry.update();
-        telemetry.speak("Why Is This Not Working!!!!!!!");
+
+
+        telemetry.speak("LETS DO THIS");
         //wait for start
         waitForStart();
         while (opModeIsActive()) {
@@ -38,14 +38,16 @@ public class teleopTankDrivetesting extends LinearOpMode {
             } else {
                 robot.Spinner.setPower(0);
             }
-
-            if (gamepad1.y) {
+            //slider controls
+            if (gamepad1.a) {
                 robot.Slider.setPower(-0.7);
-            } else if (gamepad1.a) {
+            } else if (gamepad1.y) {
                 robot.Slider.setPower(0.7);
             } else {
                 robot.Slider.setPower(0.1);
+                robot.Slider.setPower(0.1);
             }
+            //Slider controls
             if (gamepad1.dpad_up){
                 robot.Slider.setPower(0);
                 sleep(500);
@@ -53,24 +55,26 @@ public class teleopTankDrivetesting extends LinearOpMode {
                 sleep(250);
                 robot.Slider.setPower(0.1);
             }
-            if (gamepad1.x) {
+            //Sweeper controls
+            if (gamepad1.right_bumper) {
                 robot.Sweeper.setPosition(1);
-            } else if (gamepad1.b) {
+            } else if (gamepad1.left_bumper) {
                 robot.Sweeper.setPosition(0);
             }
-
+            //grabber controls
             if (gamepad1.dpad_left) {
                 robot.Grabber.setPosition(1);
             } else if (gamepad1.dpad_right) {
                 robot.Grabber.setPosition(0);
             }
-
+            //stop all motors
             if (gamepad1.dpad_down) {
 
                 robot.allMotorPower(0);
                 robot.Slider.setPower(0);
                 robot.Spinner.setPower(0);
             }
+            //slider home
             if (gamepad1.dpad_up){
                 robot.Slider.setPower(0);
                 sleep(750);
