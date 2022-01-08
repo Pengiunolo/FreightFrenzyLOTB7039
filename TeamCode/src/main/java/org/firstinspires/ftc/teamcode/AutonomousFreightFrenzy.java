@@ -74,6 +74,9 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+
+
+
         waitForStart();
 
 
@@ -82,14 +85,20 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
         //scanShippingElementTest();
 
+
         while (opModeIsActive()) {
 
 
 
 
 
+            robot.Slider.setPower(1);
+            sleep(700);
+            robot.Slider.setPower(0.2);
+            sleep(200);
             double moveLength = 28;
             int position = 1;
+
             spinAndComeBack();
             //stop();
             robotMoveToShippingElement(1.5);
@@ -107,17 +116,17 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
             else {
 
-                moveToSecondDuck(6);
+                moveToSecondDuck(8);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
-                sleep(1000);
+                sleep(100);
                 if (positionShippingElement){
                     position = 2;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 6, position);
+                    moveToShippingHub(moveLength - 8, position);
                 }
                 else {
                     position = 3;
@@ -159,6 +168,8 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
         sleep(100);
         spinLeft(4,.4);
         sleep(100);
+        encoderDriveWithoutTime(.5,-1,1,1,-1);
+        sleep(100);
         encoderDriveWithoutTime(.5,6,-6,6,-6);
         sleep(100);
         encoderDriveWithoutTime(.5,-19,-19,-19,-19);
@@ -171,15 +182,21 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
         encoderDriveWithoutTime(.5,-19.5,19.5,19.5,-19.5);
     }
 
+    private void turn90Right() {
+
+        encoderDriveWithoutTime(.5,18.5,-18.5,-18.5,18.5);
+    }
     private void moveToWarehouse() {
         //turn to the left for blue
         //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
-        encoderDriveWithoutTime(.8,-10,-10,-10,-10);
+        encoderDriveWithoutTime(.8,5,5,5,5);
         sleep(100);
-        turn90Left();
-        encoderDriveWithoutTime(.8,90,90,90,90);
+        turn90Right();
+        telemetry.addData("Before final move to warehouse","");
+        telemetry.update();
+        encoderDriveWithoutTime(.8,65,65,65,65);
 
     }
 
@@ -188,11 +205,29 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
         switch (position) {
             case 1:
                 //adjust arm position and drop cube
+                double len = 2;
+                encoderDriveWithoutTime(.5,len,len,len,len);
+                sleep(50);
+                robot.Sweeper.setPosition(0);
+                sleep(50);
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
                 break;
             case 2:
+                robot.Slider.setPower(0.7);
+                sleep(700);
+                robot.Slider.setPower(0.2);
+
+                robot.Sweeper.setPosition(0);
+                sleep(500);
                 //adjust arm position and drop cube
                 break;
             default:
+                robot.Slider.setPower(0.7);
+                sleep(1100);
+                robot.Slider.setPower(0.1);
+                robot.Sweeper.setPosition(0);
+                sleep(500);
                 //adjust arm position and drop cube
                 break;
 
@@ -210,10 +245,16 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
         encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
         sleep(100);
-        encoderDriveWithoutTime(0.5, 10, 10, 10, 10);
+        turn90Left();
+        telemetry.addData("Its working", "");
+        telemetry.update();
+        turn90Left();
         sleep(100);
+        //robot.Sweeper.setPosition(0);
+        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
-        placeFreightCorrectLocation(position);
+        //placeFreightCorrectLocation(position);
     }
 
     private boolean scanShippingElement() {

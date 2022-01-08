@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "distance Detect test")
+@Autonomous(name = "distance Detect test by time")
 public class DuckDistanceDetectionTestbytime extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();

@@ -22,9 +22,9 @@ public class teleopTankDrivetesting extends LinearOpMode {
         while (opModeIsActive()) {
             //tank controls
             robot.Back_Right.setPower(gamepad1.left_stick_y);
-            robot.Back_Left.setPower(-gamepad1.right_stick_y);
+            robot.Back_Left.setPower(gamepad1.right_stick_y);
             robot.Front_Right.setPower(gamepad1.left_stick_y);
-            robot.Front_Left.setPower(-gamepad1.right_stick_y);
+            robot.Front_Left.setPower(gamepad1.right_stick_y);
 
 
             telemetry.addData("Right Stick x", gamepad1.right_stick_x);
@@ -44,6 +44,7 @@ public class teleopTankDrivetesting extends LinearOpMode {
             } else if (gamepad1.y) {
                 robot.Slider.setPower(0.7);
             } else {
+                robot.Slider.setPower(0.1);
                 robot.Slider.setPower(0.1);
             }
             //Slider controls
