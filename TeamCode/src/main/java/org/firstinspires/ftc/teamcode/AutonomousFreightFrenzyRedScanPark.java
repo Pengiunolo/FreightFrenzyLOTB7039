@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.opencv.core.Core;
@@ -21,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class AutonomousFreightFrenzyBlue extends LinearOpMode {
+public class AutonomousFreightFrenzyRedScanPark extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -92,16 +91,19 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
 
 
+
+
+            encoderDriveWithoutTime(.5,1,1,1,1);
             robot.Slider.setPower(1);
             sleep(600);
             robot.Slider.setPower(0.2);
             sleep(200);
-            double moveLength = 28;
+            double moveLength = 33.5;
             int position = 1;
 
-            spinAndComeBack();
+            //spinAndComeBack();
             //stop();
-            robotMoveToShippingElement(1.5);
+            robotMoveToShippingElement(13);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -198,7 +200,7 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
         encoderDriveWithoutTime(.8,5,5,5,5);
         sleep(100);
-        turn90Right();
+        turn90Left();
         telemetry.addData("Before final move to warehouse","");
         telemetry.update();
         encoderDriveWithoutTime(.8,65,65,65,65);
@@ -250,13 +252,13 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");

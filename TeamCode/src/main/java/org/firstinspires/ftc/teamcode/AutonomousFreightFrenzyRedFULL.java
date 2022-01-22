@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.opencv.core.Core;
@@ -21,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class AutonomousFreightFrenzyBlue extends LinearOpMode {
+public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -101,7 +100,7 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
             spinAndComeBack();
             //stop();
-            robotMoveToShippingElement(1.5);
+            robotMoveToShippingElement(5);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -164,17 +163,22 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
         encoderDriveWithoutTime(.5,4,-4,4,-4);
         sleep(100);
-        encoderDriveWithoutTime(.3,26,26,26,26);
+        encoderDriveWithoutTime(.3,50,50,50,50);
         sleep(100);
-        spinLeft(4,.4);
+        spinRight(4,.4);
         sleep(100);
-        encoderDriveWithoutTime(.5,-1,1,1,-1);
+        encoderDriveWithoutTime(.5,12,-12,12,-12);
+        encoderDriveWithoutTime(.7,-6,-6,-6,-6);
+        turn90LeftMore();
+        turn90LeftMore();
+
+        /*encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
         encoderDriveWithoutTime(.5,6,-6,6,-6);
         sleep(100);
         encoderDriveWithoutTime(.5,-19,-19,-19,-19);
         sleep(100);
-        turn90Left();
+        turn90Left(); */
     }
 
     private void turn90Left() {
@@ -198,7 +202,7 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
         encoderDriveWithoutTime(.8,5,5,5,5);
         sleep(100);
-        turn90Right();
+        turn90Left();
         telemetry.addData("Before final move to warehouse","");
         telemetry.update();
         encoderDriveWithoutTime(.8,65,65,65,65);
@@ -250,13 +254,13 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");
