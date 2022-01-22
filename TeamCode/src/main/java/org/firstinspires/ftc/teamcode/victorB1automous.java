@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Autonomous(name = "Victors B1 automous")
-public class DuckDistanceDetectionTest extends LinearOpMode {
+public class victorB1automous extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
     int Location = 0;
@@ -71,7 +71,7 @@ public class DuckDistanceDetectionTest extends LinearOpMode {
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
                 //encoderDrive(0.6,1,1,1,1,0.5);
-                encoderDrive(0.5,20,-20,-20,20,2);
+                encoderDrive(0.5,-20,20,20,-20,2);
 
                 break;
         }
