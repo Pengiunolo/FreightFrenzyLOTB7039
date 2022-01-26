@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class AutonomousFreightFrenzy extends LinearOpMode {
+public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -93,7 +93,7 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
 
             robot.Slider.setPower(1);
-            sleep(700);
+            sleep(600);
             robot.Slider.setPower(0.2);
             sleep(200);
             double moveLength = 28;
@@ -166,6 +166,11 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
         encoderDriveWithoutTime(.5,-19.5,19.5,19.5,-19.5);
     }
 
+
+    private void turn90LeftMore() {
+
+        encoderDriveWithoutTime(.5,-20.5,20.5,20.5,-20.5);
+    }
     private void turn90Right() {
 
         encoderDriveWithoutTime(.5,18.5,-18.5,-18.5,18.5);
@@ -190,28 +195,36 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
             case 1:
                 //adjust arm position and drop cube
                 double len = 2;
-                encoderDriveWithoutTime(.5,len,len,len,len);
+
+                robot.Sweeper.setPosition(0.3);
                 sleep(50);
-                robot.Sweeper.setPosition(0);
-                sleep(50);
+                len = 2;
                 encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
                 break;
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(700);
+                sleep(900);
                 robot.Slider.setPower(0.2);
 
-                robot.Sweeper.setPosition(0);
-                sleep(500);
+
+                robot.Sweeper.setPosition(0.3);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
                 //adjust arm position and drop cube
                 break;
             default:
-                robot.Slider.setPower(0.7);
-                sleep(1100);
+                robot.Slider.setPower(1);
+                sleep(1300);
                 robot.Slider.setPower(0.1);
+
                 robot.Sweeper.setPosition(0);
-                sleep(500);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
                 //adjust arm position and drop cube
                 break;
 
@@ -229,10 +242,10 @@ public class AutonomousFreightFrenzy extends LinearOpMode {
 
         encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
         sleep(100);
-        turn90Left();
+        turn90LeftMore();
         telemetry.addData("Its working", "");
         telemetry.update();
-        turn90Left();
+        turn90LeftMore();
         sleep(100);
         //robot.Sweeper.setPosition(0);
         encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);

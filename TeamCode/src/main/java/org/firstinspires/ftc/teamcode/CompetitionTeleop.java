@@ -21,10 +21,10 @@ public class CompetitionTeleop extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             //tank controls
-            robot.Back_Right.setPower(gamepad1.left_stick_y*0.5);
-            robot.Back_Left.setPower(gamepad1.right_stick_y*0.5);
-            robot.Front_Right.setPower(gamepad1.left_stick_y*0.5);
-            robot.Front_Left.setPower(gamepad1.right_stick_y*0.5);
+            robot.Back_Right.setPower(gamepad1.left_stick_y*0.7);
+            robot.Back_Left.setPower(gamepad1.right_stick_y*0.7);
+            robot.Front_Right.setPower(gamepad1.left_stick_y*0.7);
+            robot.Front_Left.setPower(gamepad1.right_stick_y*0.7);
 
 
 
