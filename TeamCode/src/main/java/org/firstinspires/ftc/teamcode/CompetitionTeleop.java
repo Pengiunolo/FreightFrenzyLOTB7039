@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Teleop Tank Drive Competition")
-public class teleopTankDrivetesting extends LinearOpMode {
+public class CompetitionTeleop extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private final ElapsedTime runtime = new ElapsedTime();
 
@@ -64,9 +64,9 @@ public class teleopTankDrivetesting extends LinearOpMode {
             }
             //grabber controls
             if (gamepad1.dpad_left) {
-                robot.Grabber.setPosition(1);
+                robot.Kicker.setPosition(1);
             } else if (gamepad1.dpad_right) {
-                robot.Grabber.setPosition(0);
+                robot.Kicker.setPosition(0);
             }
             //stop all motors
             if (gamepad1.dpad_down) {

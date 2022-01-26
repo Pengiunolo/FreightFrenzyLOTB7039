@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "Victors B1 automous")
+@Autonomous(name = "Victors R1 automous")
 public class victorR1automous extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
@@ -81,7 +81,7 @@ public class victorR1automous extends LinearOpMode {
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
-        encoderDrive(0.5,-38,38,38,-38,4);
+        encoderDrive(0.5,38,-38,-38,38,4);
 
         switch (Location){
              case 1:
@@ -104,8 +104,7 @@ public class victorR1automous extends LinearOpMode {
          }
          encoderDrive(0.3,-15,-15,-15,-15,3);
          robot.Sweeper.setPosition(0);
-         encoderDrive(1,0.5,0.5,0.5,0.5,100);
-         encoderDrive(0.5,20,-20,-20,20,2);
+         encoderDrive(0.5,-20,20,20,-20,2);
 
 
      }
