@@ -104,9 +104,7 @@ public class victorR1automous extends LinearOpMode {
          }
          encoderDrive(0.3,-15,-15,-15,-15,3);
          robot.Sweeper.setPosition(0);
-         encoderDrive(0.5,-20,20,20,-20,2);
-
-
+         encoderDrive(0.5,20,-20,-20,20,2);
      }
 
 
