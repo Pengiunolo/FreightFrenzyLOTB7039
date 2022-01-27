@@ -141,22 +141,6 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
             moveToWarehouse();
             stop();
 
-
-
-            //switch - scan position one and two
-            //if not at one, then go to position two  if not at two, then it is at three
-            //if at one, then continue  if not at one, then go to position two
-            //if at position two, then continue
-
-            //Move forward/strafe toward shipping hub
-            //Place freight in correct location
-            //Finally go to warehouse
-
-            //sleep(5000);
-
-
-
-
         }
     }
 

@@ -56,11 +56,11 @@ public class teleopTankDrive extends LinearOpMode {
                 robot.Sweeper.setPosition(0);
             }
 
-            if (gamepad1.dpad_left) {
-                robot.Grabber.setPosition(1);
-            } else if (gamepad1.dpad_right) {
-                robot.Grabber.setPosition(0);
-            }
+//            if (gamepad1.dpad_left) {
+//                robot.Grabber.setPosition(1);
+//            } else if (gamepad1.dpad_right) {
+//                robot.Grabber.setPosition(0);
+//            }
 
             if (gamepad1.dpad_down) {
 

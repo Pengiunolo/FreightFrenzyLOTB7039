@@ -5,16 +5,16 @@ import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous(name = "Victors B1 automous")
-public class victorB1automous extends LinearOpMode {
+@Autonomous(name = "Victors R1 automous")
+public class victorR1automous extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
     int Location = 0;
+    int distanceToHub;
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
@@ -36,7 +36,7 @@ public class victorB1automous extends LinearOpMode {
                 break;
             } else {
 
-                encoderDrive(0.5,8,-8,8,-8,1);
+                encoderDrive(0.5,-8,8,-8,8,1);
 
             }
         }
@@ -48,21 +48,21 @@ public class victorB1automous extends LinearOpMode {
             case 1:
                 telemetry.addLine("location 1");
                 telemetry.update();
-//                encoderDrive(0.6,1,1,1,1,0.5);
-                encoderDrive(0.6,36,-36,36,-36,4);
+                distanceToHub = 36;
+                encoderDrive(0.6,-36,36,-36,36,4);
                 spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
                 telemetry.update();
-//                encoderDrive(0.6,1,1,1,1,0.5);
+                distanceToHub -= 8;
                 encoderDrive(0.6,28,-28,28,-28,3);
                 spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
                 telemetry.update();
-//                encoderDrive(0.6,1,1,1,1,0.5);
+                distanceToHub -= 8;
                 encoderDrive(0.6,24,-24,24,-24,2);
                 spinAndPlace();
                 break;
@@ -81,7 +81,7 @@ public class victorB1automous extends LinearOpMode {
 
      void spinAndPlace(){
         encoderDrive(0.5,4,4,4,4,2);
-        encoderDrive(0.5,-38,38,38,-38,4);
+        encoderDrive(0.5,38,-38,-38,38,4);
 
         switch (Location){
              case 1:
@@ -105,8 +105,6 @@ public class victorB1automous extends LinearOpMode {
          encoderDrive(0.3,-15,-15,-15,-15,3);
          robot.Sweeper.setPosition(0);
          encoderDrive(0.5,20,-20,-20,20,2);
-
-
      }
 
 

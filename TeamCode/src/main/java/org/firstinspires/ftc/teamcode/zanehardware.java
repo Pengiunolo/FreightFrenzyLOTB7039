@@ -19,7 +19,7 @@ public class zanehardware {
     public DcMotor Spinner;
 //    public DistanceSensor LeftDistance;
     public DistanceSensor RightDistance;
-    public Servo Grabber;
+    public Servo Kicker;
     public Servo Sweeper;
 
     HardwareMap hwMap = null;
@@ -34,7 +34,7 @@ public class zanehardware {
         Spinner = hwMap.get(DcMotor.class,"Spinner");
         Slider = hwMap.get(DcMotor.class,"Slider");
         Sweeper = hwMap.get(Servo.class,"Sweeper");
-        Grabber = hwMap.get(Servo.class,"Grabber");
+        Kicker = hwMap.get(Servo.class,"Grabber");
 //        LeftDistance = hwMap.get(DistanceSensor.class,"ldistance");
         RightDistance = hwMap.get(DistanceSensor.class,"rdistance");
 
