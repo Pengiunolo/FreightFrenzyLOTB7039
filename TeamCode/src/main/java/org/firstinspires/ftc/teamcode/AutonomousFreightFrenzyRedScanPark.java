@@ -266,6 +266,7 @@ public class AutonomousFreightFrenzyRedScanPark extends LinearOpMode {
         turn90LeftMore();
         sleep(100);
         //robot.Sweeper.setPosition(0);
+        encoderDriveWithoutTime(0.5,4,-4,4,-4);
         encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);

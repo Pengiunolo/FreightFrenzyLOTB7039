@@ -95,7 +95,7 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
             sleep(600);
             robot.Slider.setPower(0.2);
             sleep(200);
-            double moveLength = 28;
+            double moveLength = 38;
             int position = 1;
 
             spinAndComeBack();
@@ -115,7 +115,7 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
 
             else {
 
-                moveToSecondDuck(8);
+                moveToSecondDuck(9.5);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
@@ -125,7 +125,7 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 8, position);
+                    moveToShippingHub(moveLength - 9.5, position);
                 }
                 else {
                     position = 3;
@@ -167,7 +167,8 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
         sleep(100);
         spinRight(4,.4);
         sleep(100);
-        encoderDriveWithoutTime(.5,12,-12,12,-12);
+       //strafes left
+        encoderDriveWithoutTime(.5,8,-8,8,-8);
         encoderDriveWithoutTime(.7,-6,-6,-6,-6);
         turn90LeftMore();
         turn90LeftMore();
@@ -245,7 +246,7 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
                 len = 2;
                 encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
-                //adjust arm position and drop cube
+                //adjust arm position and drop c4ube
                 break;
 
         }
@@ -267,6 +268,7 @@ public class AutonomousFreightFrenzyRedFULL extends LinearOpMode {
         telemetry.update();
         turn90LeftMore();
         sleep(100);
+        encoderDriveWithoutTime(0.5,4,-4,4,-4);
         //robot.Sweeper.setPosition(0);
         encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
