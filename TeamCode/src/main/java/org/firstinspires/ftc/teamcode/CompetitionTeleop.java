@@ -64,9 +64,9 @@ public class CompetitionTeleop extends LinearOpMode {
             }
             //grabber controls
             if (gamepad1.dpad_left) {
-                robot.Kicker.setPosition(1);
+                robot.Kicker.setPosition(0.8);
             } else if (gamepad1.dpad_right) {
-                robot.Kicker.setPosition(0);
+                robot.Kicker.setPosition(0.2);
             }
             //stop all motors
             if (gamepad1.dpad_down) {
