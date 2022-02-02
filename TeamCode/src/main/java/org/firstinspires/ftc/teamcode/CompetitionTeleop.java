@@ -18,7 +18,7 @@ public class CompetitionTeleop extends LinearOpMode {
         telemetry.addLine("test");
         telemetry.update();
 
-        telemetry.speak("LETS DO THIS");
+        //telemetry.speak("LETS DO THIS");
         //wait for start
         waitForStart();
         while (opModeIsActive()) {
