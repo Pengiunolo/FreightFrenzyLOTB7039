@@ -15,7 +15,7 @@ public class CompetitionTeleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
-        telemetry.addLine(robot.Kicker.getConnectionInfo());
+        telemetry.addLine("test");
         telemetry.update();
 
         telemetry.speak("LETS DO THIS");
