@@ -64,10 +64,10 @@ public class CompetitionTeleop extends LinearOpMode {
             } else if (gamepad1.left_bumper) {
                 robot.Sweeper.setPosition(0);
             }
-            //grabber controls
-            if (gamepad1.dpad_left) {
+            //Kicker controls
+            if (gamepad1.dpad_right) {
                 robot.Kicker.setPosition(0.8);
-            } else if (gamepad1.dpad_right) {
+            } else if (gamepad1.dpad_left) {
                 //out postion
                 robot.Kicker.setPosition(0.1);
             }
