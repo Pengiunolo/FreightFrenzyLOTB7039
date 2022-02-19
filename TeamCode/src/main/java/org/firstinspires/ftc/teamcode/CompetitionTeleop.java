@@ -108,6 +108,7 @@ public class CompetitionTeleop extends LinearOpMode {
                 robot.Front_Left.setPower(-0.6);
                 robot.Front_Right.setPower(0.6);
             }
+
             //This is the Strafe
             // --Speeds changed by Coach 12/13/19
             //strafe left
