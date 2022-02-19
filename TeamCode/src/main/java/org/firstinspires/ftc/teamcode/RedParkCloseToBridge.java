@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 @Disabled
 @Autonomous
-public class R2Park extends LinearOpMode {
+public class RedParkCloseToBridge extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -86,10 +86,13 @@ public class R2Park extends LinearOpMode {
 
 
 
-            encoderDriveWithTimeLeft(4,.5);
+            robot.Slider.setPower(1);
+            sleep(600);
+            robot.Slider.setPower(0.2);
+            sleep(200);
+            encoderDriveWithoutTime(.5,5,-5,5,-5);
             sleep(100);
-            encoderDriveWithTimeForward(7,1);
-            sleep(100);
+            encoderDriveWithoutTime(.8,50,50,50,50);
             stop();
 
             double moveLength = 28;
