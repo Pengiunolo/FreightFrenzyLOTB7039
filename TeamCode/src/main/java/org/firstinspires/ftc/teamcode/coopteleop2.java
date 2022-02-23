@@ -34,7 +34,7 @@ public class coopteleop2 extends LinearOpMode {
             //spinner controls
             if (gamepad2.right_trigger == 1) {
                 robot.Spinner.setPower(-0.3);
-            } else if (gamepad1.left_trigger == 1) {
+            } else if (gamepad2.left_trigger == 1) {
                 robot.Spinner.setPower(0.3);
             } else {
                 robot.Spinner.setPower(0);
@@ -57,9 +57,9 @@ public class coopteleop2 extends LinearOpMode {
                 robot.Slider.setPower(0.1);
             }
             //Sweeper controls
-            if (gamepad2.right_bumper) {
+            if (gamepad1.right_bumper) {
                 robot.Sweeper.setPosition(1);
-            } else if (gamepad2.left_bumper) {
+            } else if (gamepad1.left_bumper) {
                 robot.Sweeper.setPosition(0);
             }
             //Kicker controls

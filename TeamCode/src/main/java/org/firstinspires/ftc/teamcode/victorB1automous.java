@@ -77,7 +77,12 @@ public class victorB1automous extends LinearOpMode {
         }
         encoderDrive(0.5,-20,20,-20,20,1);
         encoderDrive(0.8,60,60,60,60,2);
-        //in
+        //insert pickup code here
+        encoderDrive(0.8,-60,-60,-60,-60,2);
+        encoderDrive(0.5,20,-20,20,-20,1);
+        encoderDrive(0.5,20,-20,-20,20,2);
+        spinAndPlace();
+
     }
 
      void spinAndPlace(){
