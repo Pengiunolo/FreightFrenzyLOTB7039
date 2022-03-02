@@ -25,12 +25,12 @@ public class JosephIntakeTest extends LinearOpMode {
 
         while (opModeIsActive()) {
             if(gamepad1.a) {
-                robot.Intake1.setPower(0.5);
-                robot.Intake2.setPower(-0.5);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
             }
             if (gamepad1.y){
-                robot.Intake1.setPower(-0.5);
-                robot.Intake2.setPower(0.5);
+                robot.Intake1.setPower(-0.8);
+                robot.Intake2.setPower(0.8);
             }
 
         }
