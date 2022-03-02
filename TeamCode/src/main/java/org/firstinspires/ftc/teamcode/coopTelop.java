@@ -75,7 +75,7 @@ class driver2 extends Thread{
     @Override
     public void run(){
         timer.countdown();
-        while (timer.isTimerActive()) {
+        while (true) {
             if (gp2.right_trigger == 1) {
                 robot.Spinner.setPower(-0.3);
             } else if (gp2.left_trigger == 1) {

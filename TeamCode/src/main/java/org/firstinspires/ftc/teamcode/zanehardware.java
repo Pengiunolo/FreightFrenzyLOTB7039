@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -21,7 +22,8 @@ public class zanehardware {
     public DistanceSensor RightDistance;
     public Servo Kicker;
     public Servo Sweeper;
-
+    public CRServo Intake1;
+    public CRServo Intake2;
     HardwareMap hwMap = null;
     private final ElapsedTime period = new ElapsedTime();
 
@@ -35,6 +37,8 @@ public class zanehardware {
         Slider = hwMap.get(DcMotor.class,"Slider");
         Sweeper = hwMap.get(Servo.class,"Sweeper");
         Kicker = hwMap.get(Servo.class,"Kicker");
+        Intake1 =hwMap.get(CRServo.class,"Intake1");
+        Intake2 =hwMap.get(CRServo.class,"Intake2");
 //        LeftDistance = hwMap.get(DistanceSensor.class,"ldistance");
         RightDistance = hwMap.get(DistanceSensor.class,"rdistance");
 
