@@ -75,7 +75,13 @@ public class victorB1automous extends LinearOpMode {
 
                 break;
         }
+        encoderDrive(0.5,-20,20,-20,20,1);
         encoderDrive(0.8,60,60,60,60,2);
+        //insert pickup code here
+        encoderDrive(0.8,-60,-60,-60,-60,2);
+        encoderDrive(0.5,20,-20,20,-20,1);
+        encoderDrive(0.5,20,-20,-20,20,2);
+        spinAndPlace();
 
     }
 
@@ -108,14 +114,7 @@ public class victorB1automous extends LinearOpMode {
 
 
      }
-
-
-    public void encoderDrive(double speed,
-                             double Back_Left_Inches,
-                             double Back_Right_Inches,
-                             double Front_Right_Inches,
-                             double Front_Left_Inches,
-                             double timeoutS) {
+    public void encoderDrive(double speed, double Back_Left_Inches, double Back_Right_Inches, double Front_Right_Inches, double Front_Left_Inches, double timeoutS) {
         int newLeftBottomTarget;
         int newRightBottomTarget;
         int newRightTopTarget;
