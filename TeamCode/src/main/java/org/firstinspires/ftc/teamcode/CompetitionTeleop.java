@@ -50,7 +50,7 @@ public class CompetitionTeleop extends LinearOpMode {
                 robot.Slider.setPower(0.1);
                 robot.Slider.setPower(0.1);
             }
-            //Slider controls
+            //Slider home
             if (gamepad1.dpad_up){
                 robot.Slider.setPower(0);
                 sleep(500);
@@ -59,10 +59,21 @@ public class CompetitionTeleop extends LinearOpMode {
                 robot.Slider.setPower(0.1);
             }
             //Sweeper controls
-            if (gamepad1.right_bumper) {
-                robot.Sweeper.setPosition(1);
-            } else if (gamepad1.left_bumper) {
-                robot.Sweeper.setPosition(0);
+//            if (gamepad1.right_bumper) {
+//                robot.Sweeper.setPosition(1);
+//            } else if (gamepad1.left_bumper) {
+//                robot.Sweeper.setPosition(0);
+//            }
+            //intake controls
+            if(gamepad1.left_bumper) {
+                //Outward
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+            }
+            if (gamepad1.right_bumper){
+                //forward
+                robot.Intake1.setPower(-0.8);
+                robot.Intake2.setPower(0.8);
             }
             //Kicker controls
             if (gamepad1.dpad_right) {
