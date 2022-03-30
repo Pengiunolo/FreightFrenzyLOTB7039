@@ -35,9 +35,9 @@ public class CompetitionTeleop extends LinearOpMode {
             telemetry.update();
             //spinner controls
             if (gamepad1.right_trigger == 1) {
-                robot.Spinner.setPower(-0.3);
+                robot.Spinner.setPower(-0.4);
             } else if (gamepad1.left_trigger == 1) {
-                robot.Spinner.setPower(0.3);
+                robot.Spinner.setPower(0.4);
             } else {
                 robot.Spinner.setPower(0);
             }
@@ -67,24 +67,24 @@ public class CompetitionTeleop extends LinearOpMode {
             //intake controls
             if(gamepad1.left_bumper) {
                 //Outward
-                robot.Intake1.setPower(1);
-                robot.Intake2.setPower(-1);
-            }
-            if (gamepad1.right_bumper){
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+            }else if (gamepad1.right_bumper){
                 //forward
-                robot.Intake1.setPower(-1);
-                robot.Intake2.setPower(1);
+                robot.Intake1.setPower(-0.8);
+                robot.Intake2.setPower(0.8);
             } else{
-                robot.Intake1.setPower(0);
                 robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
             }
+
             //Kicker controls
-            if (gamepad1.dpad_right) {
-                robot.Kicker.setPosition(0.8);
-            } else if (gamepad1.dpad_left) {
-                //out postion
-                robot.Kicker.setPosition(0.1);
-            }
+//            if (gamepad1.dpad_right) {
+//                robot.Kicker.setPosition(0.8);
+//            } else if (gamepad1.dpad_left) {
+//                //out postion
+//                robot.Kicker.setPosition(0.1);
+//            }
             //stop all motors
             if (gamepad1.dpad_down) {
 
