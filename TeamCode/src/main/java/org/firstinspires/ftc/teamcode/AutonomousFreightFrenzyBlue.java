@@ -154,7 +154,7 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
         sleep(100);
         encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
-        encoderDriveWithoutTime(.5,6,-6,6,-6);
+        encoderDriveWithoutTime(.5,5,-5,5,-5);
         sleep(100);
         encoderDriveWithoutTime(.5,-19,-19,-19,-19);
         sleep(100);
@@ -193,15 +193,19 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
 
         switch (position) {
             case 1:
-                //adjust arm position and drop cube
                 double len = 2;
+                robot.Slider.setPower(1);
+                sleep(1300);
+                robot.Slider.setPower(0.1);
 
-                robot.Sweeper.setPosition(0.4);
+                robot.Sweeper.setPosition(0);
                 sleep(50);
                 len = 2;
                 encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
+                //adjust arm position and drop cube
                 break;
+
             case 2:
                 robot.Slider.setPower(0.7);
                 sleep(900);
@@ -216,17 +220,16 @@ public class AutonomousFreightFrenzyBlue extends LinearOpMode {
                 //adjust arm position and drop cube
                 break;
             default:
-                robot.Slider.setPower(1);
-                sleep(1300);
-                robot.Slider.setPower(0.1);
+                //adjust arm position and drop cube
 
-                robot.Sweeper.setPosition(0);
+
+                robot.Sweeper.setPosition(0.4);
                 sleep(50);
                 len = 2;
                 encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
-                //adjust arm position and drop cube
                 break;
+
 
         }
 

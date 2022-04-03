@@ -220,6 +220,10 @@ public class AutonomousFreightFrenzyRedScanPark extends LinearOpMode {
                 encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
                 break;
+
+
+
+
             case 2:
                 robot.Slider.setPower(0.7);
                 sleep(900);
@@ -234,6 +238,8 @@ public class AutonomousFreightFrenzyRedScanPark extends LinearOpMode {
                 //adjust arm position and drop cube
                 break;
             default:
+
+
                 robot.Slider.setPower(1);
                 sleep(1300);
                 robot.Slider.setPower(0.1);
@@ -245,6 +251,8 @@ public class AutonomousFreightFrenzyRedScanPark extends LinearOpMode {
                 sleep(100);
                 //adjust arm position and drop cube
                 break;
+
+
 
         }
 

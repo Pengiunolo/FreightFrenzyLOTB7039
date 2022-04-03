@@ -95,7 +95,7 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
             sleep(600);
             robot.Slider.setPower(0.2);
             sleep(200);
-            double moveLength = 38;
+            double moveLength = 35;
             int position = 1;
 
             spinAndComeBack();
@@ -163,19 +163,24 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
 
         //encoderDriveWithoutTime(.5,4,-4,4,-4);
         //sleep(100);
-        encoderDriveWithoutTime(.5,-4,-4,-4,-4);
+        encoderDriveWithoutTime(.5,-1,-1,-1,-1);
         sleep(100);
-        encoderDriveWithoutTime(.5,-4,4,-4,4);
+
+        encoderDriveWithoutTime(.5,-20,20,-20,20);
+        encoderDriveWithoutTime(.3,-2.5,2.5,-2.5,2.5);
         sleep(100);
         //encoderDriveWithoutTime(.3,50,50,50,50);
         //sleep(100);
-        spinRight(4,.4);
+        spinRight(4,.5);
         sleep(100);
        //strafes left
-        encoderDriveWithoutTime(.5,8,-8,8,-8);
+        encoderDriveWithoutTime(.5,10.5,-10.5,10.5,-10.5);
         encoderDriveWithoutTime(.7,-6,-6,-6,-6);
         turn90LeftMore();
         turn90LeftMore();
+        sleep(50);
+        encoderDriveWithoutTime(0.3,-2.5,2.5,2.5,-2.5);
+        sleep(50);
 
         /*encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
@@ -205,7 +210,7 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
         //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
-        encoderDriveWithoutTime(.8,5,5,5,5);
+        encoderDriveWithoutTime(.8,6,6,6,6);
         sleep(100);
         turn90Left();
         telemetry.addData("Before final move to warehouse","");
@@ -220,36 +225,46 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
             case 1:
                 //adjust arm position and drop cube
                 double len = 2;
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
 
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
-                sleep(100);
+
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
+
+
                 break;
             case 2:
                 robot.Slider.setPower(0.7);
                 sleep(900);
                 robot.Slider.setPower(0.2);
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
 
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
-                sleep(100);
                 //adjust arm position and drop cube
                 break;
             default:
                 robot.Slider.setPower(1);
                 sleep(1300);
                 robot.Slider.setPower(0.1);
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
 
-                robot.Sweeper.setPosition(0);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
-                sleep(100);
+
                 //adjust arm position and drop c4ube
                 break;
 
@@ -265,7 +280,7 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
+        encoderDriveWithoutTime(0.5, -moveLength - 2, moveLength + 2, -moveLength - 2, moveLength + 2);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");
@@ -274,7 +289,7 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
         sleep(100);
         encoderDriveWithoutTime(0.5,4,-4,4,-4);
         //robot.Sweeper.setPosition(0);
-        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
         //placeFreightCorrectLocation(position);
@@ -334,6 +349,7 @@ public class UNTESTEDAutonomousFreightFrenzyRedFULL extends LinearOpMode {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
         encoderDriveWithoutTime(0.3, tmpmoveLength, tmpmoveLength, tmpmoveLength, tmpmoveLength);
+
         //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
