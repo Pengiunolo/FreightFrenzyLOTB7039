@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class CompetitionTeleop extends LinearOpMode {
     zanehardware robot = new zanehardware();
     private final ElapsedTime runtime = new ElapsedTime();
+    boolean isOut= false;
+    boolean isIn= false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -65,17 +67,19 @@ public class CompetitionTeleop extends LinearOpMode {
 //                robot.Sweeper.setPosition(0);
 //            }
             //intake controls
-            if(gamepad1.left_bumper) {
-                //Outward
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-            }else if (gamepad1.right_bumper){
-                //forward
-                robot.Intake1.setPower(-0.8);
-                robot.Intake2.setPower(0.8);
-            } else{
+            if ((gamepad1.x && robot.Intake1.getPower()!=0)||(gamepad1.b && robot.Intake1.getPower()!=0) ){
+
                 robot.Intake2.setPower(0);
                 robot.Intake1.setPower(0);
+            }else if(gamepad1.b) {
+                //Outward
+
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+            }else if (gamepad1.x){
+                //forward
+                               robot.Intake1.setPower(-0.8);
+                robot.Intake2.setPower(0.8);
             }
 
             //Kicker controls
