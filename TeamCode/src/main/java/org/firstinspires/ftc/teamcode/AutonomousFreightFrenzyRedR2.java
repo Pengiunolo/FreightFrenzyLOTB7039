@@ -91,16 +91,17 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
 
 
 
-            robot.Slider.setPower(1);
-            sleep(600);
-            robot.Slider.setPower(0.2);
-            sleep(200);
+
             double moveLength = 35;
             int position = 1;
 
             //spinAndComeBack();
             //stop();
             robotMoveToShippingElement(12);
+            robot.Slider.setPower(1);
+            sleep(600);
+            robot.Slider.setPower(0);
+            sleep(200);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -242,8 +243,9 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
                 break;
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(900);
-                robot.Slider.setPower(0.2);
+                sleep(550);
+                robot.Slider.setPower(0.1);
+                sleep(100);
                 encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
@@ -257,8 +259,9 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
                 break;
             default:
                 robot.Slider.setPower(1);
-                sleep(1300);
+                sleep(750);
                 robot.Slider.setPower(0.1);
+                sleep(100);
                 encoderDriveWithoutTime(0.5, -8, -8, -8, -8);
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);

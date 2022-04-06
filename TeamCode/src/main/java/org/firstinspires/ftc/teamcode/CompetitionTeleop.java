@@ -47,8 +47,8 @@ public class CompetitionTeleop extends LinearOpMode {
             } else if (gamepad1.y) {
                 robot.Slider.setPower(0.7);
             } else {
-                robot.Slider.setPower(0.1);
-                robot.Slider.setPower(0.1);
+                robot.Slider.setPower(0);
+                robot.Slider.setPower(0);
             }
             //Slider home
             if (gamepad1.dpad_up){
@@ -98,7 +98,7 @@ public class CompetitionTeleop extends LinearOpMode {
                 sleep(750);
                 robot.Slider.setPower(0.7);
                 sleep(450);
-                robot.Slider.setPower(0.1);
+                robot.Slider.setPower(0);
             }
             //controls
 //            while (gamepad1.right_stick_x == -1 && gamepad1.right_stick_y == 1) {

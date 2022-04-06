@@ -88,6 +88,6 @@ public class zanehardware {
      } catch (InterruptedException e) {
          Thread.currentThread().interrupt();
      }
-     Slider.setPower(0.1);
+     Slider.setPower(0);
     }
 }

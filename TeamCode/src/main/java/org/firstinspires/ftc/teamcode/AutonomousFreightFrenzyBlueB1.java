@@ -92,16 +92,17 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
 
 
+
             robot.Slider.setPower(1);
-            sleep(600);
-            robot.Slider.setPower(0.2);
+            sleep(400);
+            robot.Slider.setPower(0);
             sleep(200);
             double moveLength = 28;
             int position = 1;
 
             spinAndComeBack();
             //stop();
-            robotMoveToShippingElement(1.5);
+            robotMoveToShippingElement(1.75);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -148,9 +149,11 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         encoderDriveWithoutTime(.5,4,-4,4,-4);
         sleep(100);
-        encoderDriveWithoutTime(.3,26,26,26,26);
-        sleep(100);
-        spinLeft(4,.4);
+        encoderDriveWithoutTime(.4,23,23,23,23);
+        sleep(50);
+        encoderDriveWithoutTime(.1,3,3,3,3);
+        sleep(50);
+        spinLeft(3,.4);
         sleep(100);
         encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
@@ -193,41 +196,49 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         switch (position) {
             case 1:
-                double len = 2;
                 robot.Slider.setPower(1);
-                sleep(1300);
+                sleep(750);
                 robot.Slider.setPower(0.1);
-
-                robot.Sweeper.setPosition(0);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
-                //adjust arm position and drop cube
+                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
+                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                sleep(50);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(900);
-                robot.Slider.setPower(0.2);
-
-
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(450);
+                robot.Slider.setPower(0.1);
                 sleep(100);
-                //adjust arm position and drop cube
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
             default:
                 //adjust arm position and drop cube
 
 
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
-                sleep(100);
+                //adjust arm position and drop cube
+                double len = 2;
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+
+
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
 
 
@@ -251,7 +262,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         turn90LeftMore();
         sleep(100);
         //robot.Sweeper.setPosition(0);
-        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+        //encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
         //placeFreightCorrectLocation(position);
@@ -262,7 +273,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 150;//150;
+        final int THRESHOLD = 145;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
         sleep(1000);
