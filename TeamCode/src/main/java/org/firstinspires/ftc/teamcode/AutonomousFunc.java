@@ -1,35 +1,19 @@
-
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.openftc.easyopencv.OpenCvPipeline;
+
+public interface AutonomousFunc {
+     long SLEEP_10 = 10;
+     long SLEEP_25 = 25;
+     long SLEEP_50 = 50;
 
 
-@Autonomous
-public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
-
-    private static final long SLEEP_10 = 10;
-    private static final long SLEEP_25 = 25;
-    private static final long SLEEP_50 = 50;
-
-
-    OpenCvInternalCamera phoneCam;
-    SkystoneDeterminationPipeline pipeline;
+    OpenCvInternalCamera phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.FRONT, cameraMonitorViewId);;
+    AutonomousFreightFrenzyBlueB1.SkystoneDeterminationPipeline pipeline = new AutonomousFreightFrenzyBlueB1.SkystoneDeterminationPipeline();;
     zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -37,123 +21,19 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH = 45;
-            //first hundred digits of pi fr more accuracy
+    //first hundred digits of pi fr more accuracy
 
 
-    /**
-     * Override this method and place your code here.
-     * <p>
-     * Please do not swallow the InterruptedException, as it is used in cases
-     * where the op mode needs to be terminated early.
-     *
-     * @throws InterruptedException
-     */
-    @Override
-
-    public void runOpMode() throws InterruptedException {
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.FRONT, cameraMonitorViewId);
-        pipeline = new SkystoneDeterminationPipeline();
-        phoneCam.setPipeline(pipeline);
+    phoneCam.setPipeline(pipeline);
 
 
-        // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
-        // out when the RC activity is in portrait. We do our actual image processing assuming
-        // landscape orientation, though.
-        phoneCam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
-
-        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
-            @Override
-            public void onOpened()
-            {
-                phoneCam.startStreaming(320,240, OpenCvCameraRotation.SIDEWAYS_LEFT);
-            }
-        });
-
-        robot.init(hardwareMap);
-
-
-
-
-        waitForStart();
-
-
-        double FORWARD_SPEED = 0.5;
-
-
-        //scanShippingElementTest();
-
-
-        while (opModeIsActive()) {
-
-
-
-
-
-
-            robot.Slider.setPower(1);
-            sleep(400);
-            robot.Slider.setPower(0);
-            sleep(200);
-            double moveLength = 28;
-            int position = 1;
-
-            spinAndComeBack();
-            //stop();
-            robotMoveToShippingElement(1.75);
-
-
-            boolean positionShippingElement = scanShippingElement();
-            telemetry.addData("Is the shipping element present",positionShippingElement);
-            telemetry.update();
-            sleep(100);
-            if (positionShippingElement){
-                telemetry.addData("The position is",position);
-                telemetry.update();
-                moveToShippingHub(moveLength, position);
-            }
-
-            else {
-
-                moveToSecondDuck(8);
-                positionShippingElement = scanShippingElement();
-                telemetry.addData("Is the shipping element present",positionShippingElement);
-                telemetry.update();
-                sleep(100);
-                if (positionShippingElement){
-                    position = 2;
-                    telemetry.addData("The position is",position);
-                    telemetry.update();
-
-                    moveToShippingHub(moveLength - 8, position);
-                }
-                else {
-                    position = 3;
-                    telemetry.addData("The position is",position);
-                    telemetry.update();
-
-                    moveToShippingHub(moveLength - 6, position);
-                }
-            }
-
-            placeFreightCorrectLocation(position);
-            moveToWarehouse();
-            stop();
-
-        }
-    }
-
-    private void spinAndComeBack() {
+    default void spinAndComeBack() {
 
         encoderDriveWithoutTime(.5,4,-4,4,-4);
         sleep(100);
-        encoderDriveWithoutTime(.4,23,23,23,23);
-        sleep(50);
-        encoderDriveWithoutTime(.1,3,3,3,3);
-        sleep(50);
-        spinLeft(3,.4);
+        encoderDriveWithoutTime(.3,26,26,26,26);
+        sleep(100);
+        spinLeft(4,.4);
         sleep(100);
         encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
@@ -164,21 +44,21 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         turn90Left();
     }
 
-    private void turn90Left() {
+    default void turn90Left() {
 
         encoderDriveWithoutTime(.5,-19.5,19.5,19.5,-19.5);
     }
 
 
-    private void turn90LeftMore() {
+    default void turn90LeftMore() {
 
         encoderDriveWithoutTime(.5,-20.5,20.5,20.5,-20.5);
     }
-    private void turn90Right() {
+    default void turn90Right() {
 
         encoderDriveWithoutTime(.5,18.5,-18.5,-18.5,18.5);
     }
-    private void moveToWarehouse() {
+    default void moveToWarehouse() {
         //turn to the left for blue
         //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
@@ -192,53 +72,45 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
     }
 
-    private void placeFreightCorrectLocation(int position) {
+    default void placeFreightCorrectLocation(int position) {
 
         switch (position) {
             case 1:
+                double len = 2;
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(1300);
                 robot.Slider.setPower(0.1);
-                sleep(100);
-                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
-                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+
+                robot.Sweeper.setPosition(0);
                 sleep(50);
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
+                //adjust arm position and drop cube
                 break;
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(450);
-                robot.Slider.setPower(0.1);
-                sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                sleep(900);
+                robot.Slider.setPower(0.2);
 
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
+
+                robot.Sweeper.setPosition(0.4);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
+                //adjust arm position and drop cube
                 break;
             default:
                 //adjust arm position and drop cube
 
 
-                //adjust arm position and drop cube
-                double len = 2;
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
-
-
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
+                robot.Sweeper.setPosition(0.4);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
                 break;
 
 
@@ -246,13 +118,13 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
     }
 
-    private void moveToSecondDuck(double moveLength) {
+    default void moveToSecondDuck(double moveLength) {
 
         encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
-    private void moveToShippingHub(double moveLength, int position) {
+    default void moveToShippingHub(double moveLength, int position) {
 
         encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
         sleep(100);
@@ -262,20 +134,19 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         turn90LeftMore();
         sleep(100);
         //robot.Sweeper.setPosition(0);
-        //encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
         //placeFreightCorrectLocation(position);
     }
 
-    private boolean scanShippingElement() {
+      default boolean scanShippingElement() {
 
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 145;//150;
-        telemetry.addData("Scan Threshhold:",avg1);
-        telemetry.update();
+        final int THRESHOLD = 150;//150;
+
         sleep(1000);
 
 
@@ -288,7 +159,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
     }
 
-    private void robotMoveToShippingElement(double tmpmoveLength) {
+    default void robotMoveToShippingElement(double tmpmoveLength) {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
         encoderDriveWithoutTime(0.3, tmpmoveLength, tmpmoveLength, tmpmoveLength, tmpmoveLength);
@@ -296,7 +167,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
     }
 
 
-    public void encoderDriveWithoutTime ( double speed,
+     default void encoderDriveWithoutTime ( double speed,
                                           double Back_Left_Inches,
                                           double Back_Right_Inches,
                                           double Front_Right_Inches,
@@ -366,12 +237,12 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         }
 
     }
-    public void encoderDriveWithTime(double speed,
-                             double Back_Left_Inches,
-                             double Back_Right_Inches,
-                             double Front_Right_Inches,
-                             double Front_Left_Inches,
-                             double timeoutS) {
+     default void encoderDriveWithTime(double speed,
+                                     double Back_Left_Inches,
+                                     double Back_Right_Inches,
+                                     double Front_Right_Inches,
+                                     double Front_Left_Inches,
+                                     double timeoutS) {
         int newLeftBottomTarget;
         int newRightBottomTarget;
         int newRightTopTarget;
@@ -409,8 +280,8 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS)) {
-                    //&&
-                    //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
 
                 // Display it for the driver.
                 /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
@@ -441,9 +312,9 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeForward(
-                                     double timeoutS,
-                                     double speed) {
+     default void encoderDriveWithTimeForward(
+            double timeoutS,
+            double speed) {
 
 
         // Ensure that the opmode is still active
@@ -504,7 +375,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeBackward(
+     default void encoderDriveWithTimeBackward(
             double timeoutS,
             double speed) {
 
@@ -567,7 +438,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeLeft(
+     default void encoderDriveWithTimeLeft(
             double timeoutS,
             double speed) {
 
@@ -630,7 +501,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeRight(
+    default void encoderDriveWithTimeRight(
             double timeoutS,
             double speed) {
 
@@ -694,7 +565,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void spinLeft(
+     default void spinLeft(
             double timeoutS,
             double speed) {
 
@@ -748,7 +619,7 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
 
         }
     }
-    public void spinRight(
+    default void spinRight(
             double timeoutS,
             double speed) {
 
@@ -803,115 +674,12 @@ public class AutonomousFreightFrenzyBlueB1 extends LinearOpMode {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    public static class SkystoneDeterminationPipeline extends OpenCvPipeline
-    {
-        /*
-         * An enum to define the skystone position
-         */
-        public boolean IS_SHIPPING_ELEMENT_PRESENT = false;
-
-        /*
-         * Some color constants
-         */
-        static final Scalar BLUE = new Scalar(0, 0, 255);
-        static final Scalar GREEN = new Scalar(0, 255, 0);
-
-        /*
-         * The core values which define the location and size of the sample regions
-         */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0,160);
-
-        static final int REGION_WIDTH = 155;
-        static final int REGION_HEIGHT = 66;
-
-        final int THRESHOLD = 25;//150;
-
-
-        Point region1_pointA = new Point(
-                REGION1_TOPLEFT_ANCHOR_POINT.x,
-                REGION1_TOPLEFT_ANCHOR_POINT.y);
-        Point region1_pointB = new Point(
-                REGION1_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-                REGION1_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
-
-        /*
-         * Working variables
-         */
-        Mat region1_Cb;
-        Mat YCrCb = new Mat();
-        Mat Cb = new Mat();
-        int avg1;
-
-        // Volatile since accessed by OpMode thread w/o synchronization
-        //private volatile boolean EasyOpenCVExample.SkystoneDeterminationPipeline.IS
-
-        /*
-         * This function takes the RGB frame, converts to YCrCb,
-         * and extracts the Cb channel to the 'Cb' variable
-         */
-        void inputToCb(Mat input)
-        {
-            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-            Core.extractChannel(YCrCb, Cb, 1);
+    private void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
-
-        @Override
-        public void init(Mat firstFrame)
-        {
-            inputToCb(firstFrame);
-
-            region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
-        }
-
-        @Override
-        public Mat processFrame(Mat input)
-        {
-            inputToCb(input);
-
-            avg1 = (int) Core.mean(region1_Cb).val[0];
-
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    region1_pointA, // First point which defines the rectangle
-                    region1_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
-                    2); // Thickness of the rectangle lines
-
-            //position = EasyOpenCVExample.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
-            if(avg1 > THRESHOLD){
-                IS_SHIPPING_ELEMENT_PRESENT = true;
-            }else {
-                IS_SHIPPING_ELEMENT_PRESENT = false;
-            }
-
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    region1_pointA, // First point which defines the rectangle
-                    region1_pointB, // Second point which defines the rectangle
-                    GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
-
-            return input;
-        }
-
-        public int getAnalysis()
-        {
-            return avg1;
-        }
-
-
-
     }
 
 }
