@@ -1,12 +1,12 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.zanehardware;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -19,9 +19,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Disabled
+
 @Autonomous
-public class RedParkCloseToBridge extends LinearOpMode {
+public class AutonomousFreightFrenzyTEST extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -30,13 +30,13 @@ public class RedParkCloseToBridge extends LinearOpMode {
 
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
-    Saketzanehardware robot = new Saketzanehardware();
+    zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH = 122.600924;
+    static final double     COUNTS_PER_INCH = 45;
             //first hundred digits of pi fr more accuracy
 
 
@@ -80,31 +80,28 @@ public class RedParkCloseToBridge extends LinearOpMode {
         double FORWARD_SPEED = 0.5;
 
 
+        scanShippingElementTest();
 
         while (opModeIsActive()) {
 
 
 
 
-            robot.Slider.setPower(1);
-            sleep(600);
-            robot.Slider.setPower(0.2);
-            sleep(200);
-            encoderDriveWithoutTime(.5,5,-5,5,-5);
-            sleep(100);
-            encoderDriveWithoutTime(.8,50,50,50,50);
-            stop();
 
             double moveLength = 28;
             int position = 1;
-            robotMoveToShippingElement(1);
-            sleep(5000);
+            spinAndComeBack();
+            //stop();
+            //robotMoveToShippingElement(1);
+
 
             boolean positionShippingElement = scanShippingElement();
             telemetry.addData("Is the shipping element present",positionShippingElement);
             telemetry.update();
-            sleep(1000);
+            sleep(100);
             if (positionShippingElement){
+                telemetry.addData("The position is",position);
+                telemetry.update();
                 moveToShippingHub(moveLength, position);
             }
 
@@ -117,11 +114,15 @@ public class RedParkCloseToBridge extends LinearOpMode {
                 sleep(1000);
                 if (positionShippingElement){
                     position = 2;
+                    telemetry.addData("The position is",position);
+                    telemetry.update();
 
                     moveToShippingHub(moveLength - 6, position);
                 }
                 else {
                     position = 3;
+                    telemetry.addData("The position is",position);
+                    telemetry.update();
 
                     moveToShippingHub(moveLength - 6, position);
                 }
@@ -150,6 +151,26 @@ public class RedParkCloseToBridge extends LinearOpMode {
         }
     }
 
+    private void spinAndComeBack() {
+
+        encoderDriveWithoutTime(.5,4,-4,4,-4);
+        sleep(100);
+        encoderDriveWithoutTime(.3,26,26,26,26);
+        sleep(100);
+        spinLeft(4,.4);
+        sleep(100);
+        encoderDriveWithoutTime(.5,6,-6,6,-6);
+        sleep(100);
+        encoderDriveWithoutTime(.5,-18,-18,-18,-18);
+        sleep(100);
+        turn90Left();
+    }
+
+    private void turn90Left() {
+
+        encoderDriveWithoutTime(.5,-19.5,19.5,19.5,-19.5);
+    }
+
     private void moveToWarehouse() {
         //turn to the left for blue
         encoderDriveWithoutTime(0.5,4,4,4,4);
@@ -176,8 +197,8 @@ public class RedParkCloseToBridge extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        //encoderDriveWithoutTime(0.3, moveLength, moveLength, moveLength, moveLength);
-        encoderDriveWithTime(0.3,1,1,1,1,2);
+        encoderDriveWithoutTime(0.3, moveLength, moveLength, moveLength, moveLength);
+        //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
@@ -189,12 +210,43 @@ public class RedParkCloseToBridge extends LinearOpMode {
 
     private boolean scanShippingElement() {
 
+        sleep(100);
+        int avg1 = pipeline.getAnalysis();
+
+        final int THRESHOLD = 175;//150;
+        telemetry.addData("Scan Threshhold:",avg1);
+        telemetry.update();
         sleep(1000);
+
+
+        if(avg1 > THRESHOLD){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+    private boolean scanShippingElementTest() {
+
+        while (opModeIsActive()) {
+            sleep(100);
+            int avg1 = pipeline.getAnalysis();
+
+            final int THRESHOLD = 25;//150;
+            telemetry.addData("Scan Threshhold:",avg1);
+            telemetry.update();
+            sleep(2000);
+
+
+        }
+        sleep(100);
         int avg1 = pipeline.getAnalysis();
 
         final int THRESHOLD = 25;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
+        sleep(5000);
 
 
         if(avg1 > THRESHOLD){
@@ -209,8 +261,8 @@ public class RedParkCloseToBridge extends LinearOpMode {
     private void robotMoveToShippingElement(double tmpmoveLength) {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
-        //encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
-        encoderDriveWithTime(1,-1,-1,-1,-1,10);
+        encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
+        //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
 
@@ -770,7 +822,7 @@ public class RedParkCloseToBridge extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(75,58);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0,160);
 
         static final int REGION_WIDTH = 140;
         static final int REGION_HEIGHT = 66;

@@ -1,26 +1,37 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
+
+import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.zanehardware;
+
 @Disabled
-@Autonomous(name = "distance Detect test by time")
-public class DuckDistanceDetectionTestbytime extends LinearOpMode {
+@Autonomous(name = "Victors B1 automous")
+public class victorB1automous extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
-
+    int Location = 0;
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        telemetry.speak("TEST is working");
-
+        //revese the motor direction for this program
+        //robot.Front_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+//        robot.Front_Left.setDirection(DcMotorSimple.Direction.FORWARD);
+        //robot.Back_Right.setDirection(DcMotorSimple.Direction.REVERSE);
+//        robot.Back_Left.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.sliderMove(0.8, 200l);
+        robot.Slider.setPower(0.1);
         waitForStart();
 
-        int Location = 0;
+// make sure to have the encoder statements reversed
+
         for (int i = 0; i < 3; i++) {
 
             if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18) {
@@ -28,77 +39,85 @@ public class DuckDistanceDetectionTestbytime extends LinearOpMode {
                 break;
             } else {
 
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 1000);
-                //encoderDrive(0.5,-8,8,-8,8,3);
+                encoderDrive(0.5,8,-8,8,-8,1);
 
             }
         }
+        if(Location != 0){
+            telemetry.speak("Location equals" + String.valueOf(Location));
+        }
+        encoderDrive(0.5,1,1,1,1,500);
         switch (Location) {
             case 1:
                 telemetry.addLine("location 1");
-                telemetry.speak("Location equals" + Location);
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 4000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
+//                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,36,-36,36,-36,4);
+                spinAndPlace();
                 break;
             case 2:
                 telemetry.addLine("location 2");
-                telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 3000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
+//                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,28,-28,28,-28,3);
+                spinAndPlace();
                 break;
             case 3:
                 telemetry.addLine("location 3");
-                telemetry.speak(String.valueOf(Location));
                 telemetry.update();
-                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 2000);
-                sleep(250);
-                robot.allMotorPower(0.5);
-                sleep(1000);
-                robot.allMotorPower(0);
+//                encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.6,24,-24,24,-24,2);
+                spinAndPlace();
                 break;
             default:
                 telemetry.addLine("no object found");
                 telemetry.speak("no OBJECT found");
                 telemetry.update();
-                sleep(2000);
+                //encoderDrive(0.6,1,1,1,1,0.5);
+                encoderDrive(0.5,-20,20,20,-20,2);
 
                 break;
         }
+        encoderDrive(0.5,-20,20,-20,20,1);
+        encoderDrive(0.8,60,60,60,60,2);
+        //insert pickup code here
+        encoderDrive(0.8,-60,-60,-60,-60,2);
+        encoderDrive(0.5,20,-20,20,-20,1);
+        encoderDrive(0.5,20,-20,-20,20,2);
+        spinAndPlace();
 
     }
 
+     void spinAndPlace(){
+        encoderDrive(0.5,4,4,4,4,2);
+        encoderDrive(0.5,-38,38,38,-38,4);
 
-//    public int barcodeDetect(){
-//        int count = 0;
-//        int Location = 0;
-//        for (int i = 0;  i < 4; i++ ){
-//            count ++;
-//            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18 && seenObject == false){
-//                Location = count;
-//                seenObject = true;
-//                encoderDrive(0.5,8,-8,8,-8,3);
-//            }else if(seenObject == true){
-//                break;
-//            }else{
+        switch (Location){
+             case 1:
+                 robot.sliderMove(1d,3500l);
+//                 robot.Sweeper.setPosition(0);
+//                 encoderDrive(1,0.5,0.5,0.5,0.5,100);
+                 break;
+             case 2:
+                 robot.sliderMove(0.9,1500l);
+//                 robot.Sweeper.setPosition(0);
+//                 encoderDrive(1,0.5,0.5,0.5,0.5,100);
+                 break;
+
+             case 3:
+                 robot.sliderMove(0.9,1000l);
 //
-//            }
-//        }
+                 break;
+             default:
+                 break;
+         }
+         encoderDrive(0.3,-15,-15,-15,-15,3);
+         robot.Sweeper.setPosition(0);
+         encoderDrive(0.5,20,-20,-20,20,2);
 
 
-    public void encoderDrive(double speed,
-                             double Back_Left_Inches,
-                             double Back_Right_Inches,
-                             double Front_Right_Inches,
-                             double Front_Left_Inches,
-                             double timeoutS) {
+     }
+    public void encoderDrive(double speed, double Back_Left_Inches, double Back_Right_Inches, double Front_Right_Inches, double Front_Left_Inches, double timeoutS) {
         int newLeftBottomTarget;
         int newRightBottomTarget;
         int newRightTopTarget;
@@ -107,9 +126,8 @@ public class DuckDistanceDetectionTestbytime extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
-
             // Determine new target position, and pass to motor controller
-            double COUNTS_PER_INCH = 122.600924;
+
             newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int) (Back_Left_Inches * COUNTS_PER_INCH);
             newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int) (Back_Right_Inches * COUNTS_PER_INCH);
             newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
@@ -166,4 +184,9 @@ public class DuckDistanceDetectionTestbytime extends LinearOpMode {
 
         }
     }
+    void printToPhone(String Text){
+        telemetry.addLine(Text);
+        telemetry.update();
+    }
 }
+

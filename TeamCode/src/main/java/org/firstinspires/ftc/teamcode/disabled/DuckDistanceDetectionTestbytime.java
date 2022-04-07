@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -7,9 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.zanehardware;
+
 @Disabled
-@Autonomous(name = "servo move test")
-public class servomove extends LinearOpMode {
+@Autonomous(name = "distance Detect test by time")
+public class DuckDistanceDetectionTestbytime extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     zanehardware robot = new zanehardware();
 
@@ -20,13 +22,58 @@ public class servomove extends LinearOpMode {
 
         waitForStart();
 
-        robot.Sweeper.setPosition(0.5);
-        sleep(1000);
-        robot.Sweeper.setPosition(0);
+        int Location = 0;
+        for (int i = 0; i < 3; i++) {
 
+            if (robot.RightDistance.getDistance(DistanceUnit.INCH) <= 18) {
+                Location = i + 1;
+                break;
+            } else {
 
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 1000);
+                //encoderDrive(0.5,-8,8,-8,8,3);
 
+            }
+        }
+        switch (Location) {
+            case 1:
+                telemetry.addLine("location 1");
+                telemetry.speak("Location equals" + Location);
+                telemetry.update();
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 4000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
+                break;
+            case 2:
+                telemetry.addLine("location 2");
+                telemetry.speak(String.valueOf(Location));
+                telemetry.update();
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 3000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
+                break;
+            case 3:
+                telemetry.addLine("location 3");
+                telemetry.speak(String.valueOf(Location));
+                telemetry.update();
+                robot.driveByTime(-0.5, 0.5, -0.5, -0.5, 2000);
+                sleep(250);
+                robot.allMotorPower(0.5);
+                sleep(1000);
+                robot.allMotorPower(0);
+                break;
+            default:
+                telemetry.addLine("no object found");
+                telemetry.speak("no OBJECT found");
+                telemetry.update();
+                sleep(2000);
 
+                break;
+        }
 
     }
 

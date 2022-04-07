@@ -1,11 +1,13 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.zanehardware;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -17,10 +19,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
-
+@Disabled
 
 @Autonomous
-public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
+public class AutonomousFreightFrenzyRedNotFull extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -30,7 +32,7 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
     zanehardware robot = new zanehardware();
-    private ElapsedTime runtime = new ElapsedTime();
+    private final ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
@@ -91,17 +93,16 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
 
 
 
-
-            double moveLength = 35;
-            int position = 1;
-
-            //spinAndComeBack();
-            //stop();
-            robotMoveToShippingElement(12);
             robot.Slider.setPower(1);
             sleep(600);
-            robot.Slider.setPower(0);
+            robot.Slider.setPower(0.2);
             sleep(200);
+            double moveLength = 38;
+            int position = 1;
+
+            spinAndComeBack();
+            //stop();
+            robotMoveToShippingElement(5);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -111,30 +112,29 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
             if (positionShippingElement){
                 telemetry.addData("The position is",position);
                 telemetry.update();
-                position = 2;
-                moveToShippingHub(moveLength - 11.5, position);
+                moveToShippingHub(moveLength, position);
             }
 
             else {
 
-                moveToSecondDuck(10.5);
+                moveToSecondDuck(9.5);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
                 sleep(100);
                 if (positionShippingElement){
-                    position = 1;
+                    position = 2;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 19.5, position);
+                    moveToShippingHub(moveLength - 9.5, position);
                 }
                 else {
                     position = 3;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 19.5, position);
+                    moveToShippingHub(moveLength - 6, position);
                 }
             }
 
@@ -163,27 +163,17 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
 
     private void spinAndComeBack() {
 
-        //encoderDriveWithoutTime(.5,4,-4,4,-4);
-        //sleep(100);
-        encoderDriveWithoutTime(.5,-1,-1,-1,-1);
-        sleep(50);
-
-        encoderDriveWithoutTime(.5,-20,20,-20,20);
-        sleep(50);
-        encoderDriveWithoutTime(.1,-2.5,2.5,-2.5,2.5);
+        encoderDriveWithoutTime(.5,4,-4,4,-4);
         sleep(100);
-        //encoderDriveWithoutTime(.3,50,50,50,50);
-        //sleep(100);
-        spinRight(2.5,.4);
-        sleep(50);
+        encoderDriveWithoutTime(.3,50,50,50,50);
+        sleep(100);
+        spinRight(4,.4);
+        sleep(100);
        //strafes left
-        encoderDriveWithoutTime(.5,10.5,-10.5,10.5,-10.5);
+        encoderDriveWithoutTime(.5,8,-8,8,-8);
         encoderDriveWithoutTime(.7,-6,-6,-6,-6);
         turn90LeftMore();
         turn90LeftMore();
-        sleep(50);
-        encoderDriveWithoutTime(0.3,-2.5,2.5,2.5,-2.5);
-        sleep(50);
 
         /*encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
@@ -213,10 +203,9 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
         //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
-        encoderDriveWithoutTime(.8,8,8,8,8);
+        encoderDriveWithoutTime(.8,5,5,5,5);
         sleep(100);
         turn90Left();
-        encoderDriveWithoutTime(.4,-8,8,-8,8);
         telemetry.addData("Before final move to warehouse","");
         telemetry.update();
         encoderDriveWithoutTime(.8,65,65,65,65);
@@ -229,50 +218,44 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
             case 1:
                 //adjust arm position and drop cube
                 double len = 2;
-                encoderDriveWithoutTime(0.5, -8, -8, -8, -8);
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
-
-
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
-
-
+                robot.Sweeper.setPosition(0.4);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(100);
                 break;
+
+
+
+
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(550);
-                robot.Slider.setPower(0.1);
+                sleep(900);
+                robot.Slider.setPower(0.2);
+
+
+                robot.Sweeper.setPosition(0.4);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
-
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
-
                 //adjust arm position and drop cube
                 break;
             default:
+
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(1300);
                 robot.Slider.setPower(0.1);
+
+                robot.Sweeper.setPosition(0);
+                sleep(50);
+                len = 2;
+                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -8, -8, -8, -8);
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
-                robot.Intake1.setPower(0.8);
-                robot.Intake2.setPower(-0.8);
-                sleep(2000);
-                robot.Intake2.setPower(0);
-                robot.Intake1.setPower(0);
-
-
                 //adjust arm position and drop c4ube
                 break;
+
+
 
         }
 
@@ -280,13 +263,13 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, moveLength + 2, -moveLength - 2, moveLength + 2, -moveLength - 2);
+        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");
@@ -295,7 +278,7 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
         sleep(100);
         encoderDriveWithoutTime(0.5,4,-4,4,-4);
         //robot.Sweeper.setPosition(0);
-
+        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
         //placeFreightCorrectLocation(position);
@@ -306,17 +289,13 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 155;//150;
+        final int THRESHOLD = 150;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
         sleep(1000);
 
 
-        if(avg1 > THRESHOLD){
-            return true;
-        }else{
-            return false;
-        }
+        return avg1 > THRESHOLD;
 
 
     }
@@ -342,11 +321,7 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
         sleep(5000);
 
 
-        if(avg1 > THRESHOLD){
-            return true;
-        }else{
-            return false;
-        }
+        return avg1 > THRESHOLD;
 
 
     }
@@ -355,7 +330,6 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
         encoderDriveWithoutTime(0.3, tmpmoveLength, tmpmoveLength, tmpmoveLength, tmpmoveLength);
-
         //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
@@ -975,11 +949,7 @@ public class AutonomousFreightFrenzyRedR2 extends LinearOpMode {
                     2); // Thickness of the rectangle lines
 
             //position = EasyOpenCVExample.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
-            if(avg1 > THRESHOLD){
-                IS_SHIPPING_ELEMENT_PRESENT = true;
-            }else {
-                IS_SHIPPING_ELEMENT_PRESENT = false;
-            }
+            IS_SHIPPING_ELEMENT_PRESENT = avg1 > THRESHOLD;
 
             Imgproc.rectangle(
                     input, // Buffer to draw on

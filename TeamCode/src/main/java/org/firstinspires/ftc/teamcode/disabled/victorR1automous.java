@@ -1,14 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.zanehardware;
 
+@Disabled
 @Autonomous(name = "Victors R1 automous")
 public class victorR1automous extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();

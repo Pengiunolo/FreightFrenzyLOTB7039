@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.disabled;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.zanehardware;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -21,7 +22,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 @Disabled
 @Autonomous
-public class RedPark extends LinearOpMode {
+public class B1SpinAndParkOLD extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -30,7 +31,7 @@ public class RedPark extends LinearOpMode {
 
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
-    Saketzanehardware robot = new Saketzanehardware();
+    zanehardware robot = new zanehardware();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
@@ -86,11 +87,27 @@ public class RedPark extends LinearOpMode {
 
 
 
-            encoderDriveWithTimeLeft(.5,.5);
+            encoderDriveWithoutTime(.5,4,-4,4,-4);
             sleep(100);
-            encoderDriveWithTimeForward(3.7,1);
+            encoderDriveWithoutTime(.75,27,27,27,27);
             sleep(100);
+            spinRight(7,.4);
+            sleep(100);
+            encoderDriveWithoutTime(.5,3,-3,3,-3);
+            sleep(100);
+            encoderDriveWithoutTime(1,-102,-102,-102,-102);
             stop();
+
+            /*encoderDriveWithTimeLeft(.5,.5);
+            sleep(100);
+            encoderDriveWithTimeForward(2.7,.5);
+            sleep(100);
+            spinRight(7, .3);
+            sleep(100);
+            encoderDriveWithTimeLeft(.4,.5);
+            sleep(100);
+            encoderDriveWithTimeBackward(6,1);
+            stop(); */
 
             double moveLength = 28;
             int position = 1;
@@ -378,7 +395,7 @@ public class RedPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeForward(
+    public void encoderDriveWithTimeBackward(
                                      double timeoutS,
                                      double speed) {
 
@@ -441,7 +458,7 @@ public class RedPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeBackward(
+    public void encoderDriveWithTimeForward(
             double timeoutS,
             double speed) {
 
@@ -504,7 +521,7 @@ public class RedPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeLeft(
+    public void encoderDriveWithTimeRight(
             double timeoutS,
             double speed) {
 
@@ -567,7 +584,7 @@ public class RedPark extends LinearOpMode {
 
         }
     }
-    public void encoderDriveWithTimeRight(
+    public void encoderDriveWithTimeLeft(
             double timeoutS,
             double speed) {
 
