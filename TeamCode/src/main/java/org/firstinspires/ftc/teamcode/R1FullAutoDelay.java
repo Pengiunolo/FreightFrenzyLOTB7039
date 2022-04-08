@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-@Autonomous(name="Red Full 1")
+@Autonomous(name="Red Full 1 delay")
 public class R1FullAutoDelay extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;

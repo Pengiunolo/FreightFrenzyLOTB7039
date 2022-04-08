@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-@Autonomous(name = "Red Full 2")
+@Autonomous(name = "Red Full 2 delay")
 public class R2ScanParkDelay extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;

@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-@Autonomous(name="Red scan & spin ")
+@Autonomous(name="Red scan & spin delay")
 public class R1ScanSpinDelay extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
