@@ -82,11 +82,11 @@ public class CompetitionTeleop extends LinearOpMode {
 //                robot.Intake2.setPower(1);
 //            }
             if(gamepad1.right_bumper){
-                robot.Intake1.setPower(-1);
-                robot.Intake2.setPower(1);
+                robot.Intake1.setPower(-0.8);
+                robot.Intake2.setPower(0.8);
             }else if(gamepad1.left_bumper){
-                robot.Intake1.setPower(1);
-                robot.Intake2.setPower(-1);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
             }else{
                 robot.Intake1.setPower(0);
                 robot.Intake2.setPower(0);
