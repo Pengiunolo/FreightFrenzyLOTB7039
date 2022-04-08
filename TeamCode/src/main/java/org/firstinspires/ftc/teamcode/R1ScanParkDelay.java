@@ -77,7 +77,7 @@ public class R1ScanParkDelay extends LinearOpMode {
 
 
         waitForStart();
-        sleep(10000);
+        sleep(globalvar.delaytime);
 
         double FORWARD_SPEED = 0.5;
 
