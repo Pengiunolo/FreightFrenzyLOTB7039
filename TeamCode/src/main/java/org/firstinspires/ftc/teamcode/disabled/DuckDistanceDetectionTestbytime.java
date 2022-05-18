@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.zanehardware;
+import org.firstinspires.ftc.teamcode.Competition.zanehardware;
 
 @Disabled
 @Autonomous(name = "distance Detect test by time")

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.zanehardware;
+import org.firstinspires.ftc.teamcode.Competition.zanehardware;
 
 @TeleOp(name = "Teleop Tank Drive Coop that would probaly work")
 public class coopteleop2 extends LinearOpMode {

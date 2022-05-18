@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -19,8 +19,8 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-@Autonomous(name="Red Full 1")
-public class R1FullAuto extends LinearOpMode {
+@Autonomous(name="Red scan & spin ")
+public class R1ScanSpin extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -137,7 +137,6 @@ public class R1FullAuto extends LinearOpMode {
             }
 
             placeFreightCorrectLocation(position);
-            moveToWarehouse();
             stop();
 
 
