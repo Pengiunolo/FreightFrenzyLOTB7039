@@ -17,6 +17,13 @@ public class DemoTeleop extends LinearOpMode {
             robot.Back_Left.setPower(gamepad1.right_stick_y*0.7);
             robot.Front_Right.setPower(gamepad1.left_stick_y*0.7);
             robot.Front_Left.setPower(gamepad1.right_stick_y*0.7);
+            if(gamepad1.right_trigger == 1){
+                robot.Arm.setPower(0.7);
+            }else if (gamepad1.left_trigger == 1){
+                robot.Arm.setPower(-0.7);
+            }else {
+                robot.Arm.setPower(0);
+            }
         }
     }
 }
