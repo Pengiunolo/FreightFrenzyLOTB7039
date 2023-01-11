@@ -1,7 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
-
-import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
+package org.firstinspires.ftc.teamcode.Competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B1SpinPark extends LinearOpMode {
+public class B1FullAuto extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -37,7 +35,7 @@ public class B1SpinPark extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 537.6;//356.3 ;    // eg: DC Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
-    //static final double     COUNTS_PER_INCH = 45;
+    static final double     COUNTS_PER_INCH = 45;
             //first hundred digits of pi fr more accuracy
 
 
@@ -75,11 +73,16 @@ public class B1SpinPark extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+
+
+
         waitForStart();
 
 
         double FORWARD_SPEED = 0.5;
 
+
+        //scanShippingElementTest();
 
 
         while (opModeIsActive()) {
@@ -87,64 +90,48 @@ public class B1SpinPark extends LinearOpMode {
 
 
 
-            encoderDriveWithoutTime(.5,4,-4,4,-4);
-            sleep(100);
-            encoderDriveWithoutTime(.3,26,26,26,26);
-            sleep(100);
-            spinLeft(5,.4);
-            sleep(100);
-            encoderDriveWithoutTime(.5,3,-3,3,-3);
-            sleep(100);
-            encoderDriveWithoutTime(.8,-107,-107,-107,-107);
-            stop();
-            //encoderDriveWithoutTimeFrontLeft(1,5,5,5,5);
-            //encoderDriveWithoutTimeFrontRight(1,5,5,5,5);
-            //stop();,
-            encoderDriveWithoutTime(.3,5,5,5,5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,-5,-5,-5,-5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,5,-5,5,-5);
-            sleep(1000);
-            encoderDriveWithoutTime(.3,-5,5,-5,5);
-            stop();
-            /*sleep(100);
-            encoderDriveWithTimeForward(2.7,.5);
-            sleep(100);
-            spinRight(7, .3);
-            sleep(100);
-            encoderDriveWithTimeLeft(.4,.5);
-            sleep(100);
-            encoderDriveWithTimeBackward(6,1);
-            stop();*/
 
+
+            robot.Slider.setPower(1);
+            sleep(400);
+            robot.Slider.setPower(0);
+            sleep(200);
             double moveLength = 28;
             int position = 1;
-            robotMoveToShippingElement(1);
-            sleep(5000);
+
+            spinAndComeBack();
+            //stop();
+            robotMoveToShippingElement(1.75);
+
 
             boolean positionShippingElement = scanShippingElement();
             telemetry.addData("Is the shipping element present",positionShippingElement);
             telemetry.update();
-            sleep(1000);
+            sleep(100);
             if (positionShippingElement){
+                telemetry.addData("The position is",position);
+                telemetry.update();
                 moveToShippingHub(moveLength, position);
             }
 
             else {
 
-                moveToSecondDuck(6);
+                moveToSecondDuck(8);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
-                sleep(1000);
+                sleep(100);
                 if (positionShippingElement){
                     position = 2;
+                    telemetry.addData("The position is",position);
+                    telemetry.update();
 
-                    moveToShippingHub(moveLength - 6, position);
+                    moveToShippingHub(moveLength - 8, position);
                 }
                 else {
                     position = 3;
+                    telemetry.addData("The position is",position);
+                    telemetry.update();
 
                     moveToShippingHub(moveLength - 6, position);
                 }
@@ -154,44 +141,105 @@ public class B1SpinPark extends LinearOpMode {
             moveToWarehouse();
             stop();
 
-
-
-            //switch - scan position one and two
-            //if not at one, then go to position two  if not at two, then it is at three
-            //if at one, then continue  if not at one, then go to position two
-            //if at position two, then continue
-
-            //Move forward/strafe toward shipping hub
-            //Place freight in correct location
-            //Finally go to warehouse
-
-            //sleep(5000);
-
-
-
-
         }
     }
 
+    private void spinAndComeBack() {
+
+        encoderDriveWithoutTime(.5,4,-4,4,-4);
+        sleep(100);
+        encoderDriveWithoutTime(.4,23,23,23,23);
+        sleep(50);
+        encoderDriveWithoutTime(.1,3,3,3,3);
+        sleep(50);
+        spinLeft(3,.4);
+        sleep(100);
+        encoderDriveWithoutTime(.5,-1,1,1,-1);
+        sleep(100);
+        encoderDriveWithoutTime(.5,5,-5,5,-5);
+        sleep(100);
+        encoderDriveWithoutTime(.5,-19,-19,-19,-19);
+        sleep(100);
+        turn90Left();
+    }
+
+    private void turn90Left() {
+
+        encoderDriveWithoutTime(.5,-19.5,19.5,19.5,-19.5);
+    }
+
+
+    private void turn90LeftMore() {
+
+        encoderDriveWithoutTime(.5,-20.5,20.5,20.5,-20.5);
+    }
+    private void turn90Right() {
+
+        encoderDriveWithoutTime(.5,18.5,-18.5,-18.5,18.5);
+    }
     private void moveToWarehouse() {
         //turn to the left for blue
-        encoderDriveWithoutTime(0.5,4,4,4,4);
+        //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
-        encoderDriveWithoutTime(0.5, 48,48,48,48);
+        //encoderDriveWithoutTime(0.5, 48,48,48,48);
+        encoderDriveWithoutTime(.8,5,5,5,5);
+        sleep(100);
+        turn90Right();
+        telemetry.addData("Before final move to warehouse","");
+        telemetry.update();
+        encoderDriveWithoutTime(.8,65,65,65,65);
+
     }
 
     private void placeFreightCorrectLocation(int position) {
 
         switch (position) {
             case 1:
-                //adjust arm position and drop cube
+                robot.Slider.setPower(1);
+                sleep(750);
+                robot.Slider.setPower(0.1);
+                sleep(100);
+                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
+                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                sleep(50);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
+
             case 2:
-                //adjust arm position and drop cube
+                robot.Slider.setPower(0.7);
+                sleep(450);
+                robot.Slider.setPower(0.1);
+                sleep(100);
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
             default:
                 //adjust arm position and drop cube
+
+
+                //adjust arm position and drop cube
+                double len = 2;
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+
+
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
+
 
         }
 
@@ -199,15 +247,24 @@ public class B1SpinPark extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        //encoderDriveWithoutTime(0.3, moveLength, moveLength, moveLength, moveLength);
-        encoderDriveWithTime(0.3,1,1,1,1,2);
+        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, -moveLength, -moveLength, -moveLength, -moveLength);
-        encoderDriveWithoutTime(.3, -6,6,-6,6);
-        placeFreightCorrectLocation(position);
+        encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
+        sleep(100);
+        turn90LeftMore();
+        telemetry.addData("Its working", "");
+        telemetry.update();
+        turn90LeftMore();
+        sleep(100);
+        //robot.Sweeper.setPosition(0);
+        //encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+
+        //encoderDriveWithoutTime(.3, -6,6,-6,6);
+        //placeFreightCorrectLocation(position);
     }
 
     private boolean scanShippingElement() {
@@ -215,9 +272,10 @@ public class B1SpinPark extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 25;//150;
+        final int THRESHOLD = 145;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
+        sleep(1000);
 
 
         if(avg1 > THRESHOLD){
@@ -232,32 +290,10 @@ public class B1SpinPark extends LinearOpMode {
     private void robotMoveToShippingElement(double tmpmoveLength) {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
         telemetry.update();
-        //encoderDriveWithoutTime(0.3, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength, -tmpmoveLength);
-        encoderDriveWithTime(1,-1,-1,-1,-1,10);
+        encoderDriveWithoutTime(0.3, tmpmoveLength, tmpmoveLength, tmpmoveLength, tmpmoveLength);
+        //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
-
-
-    private void strafeLeft(double moveLength) {
-        telemetry.addData("Strafe Left: ", moveLength);
-        telemetry.update();
-        //encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
-        encoderDriveWithTime(0.3,-1,1,-1,1,2);
-    }
-
-    private void strafeRight(double moveLength) {
-        telemetry.addData("Strafe Right: ", moveLength);
-        telemetry.update();
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
-    }
-
-    private void moveTowards(double moveLength) {
-
-        telemetry.addData("Move Length: ", moveLength);
-        telemetry.update();
-        encoderDriveWithoutTime(0.5, -moveLength, -moveLength, -moveLength, -moveLength);
-
-    }
 
     public void encoderDriveWithoutTime ( double speed,
                                           double Back_Left_Inches,
@@ -316,155 +352,6 @@ public class B1SpinPark extends LinearOpMode {
             robot.Back_Left.setPower(0);
             robot.Back_Right.setPower(0);
             robot.Front_Left.setPower(0);
-            robot.Front_Right.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-
-        }
-
-    }
-    public void encoderDriveWithoutTimeFrontLeft ( double speed,
-                                          double Back_Left_Inches,
-                                          double Back_Right_Inches,
-                                          double Front_Right_Inches,
-                                          double Front_Left_Inches)
-    {
-        int newLeftBottomTarget;
-        int newRightBottomTarget;
-        int newRightTopTarget;
-        int newLeftTopTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            // Determine new target position, and pass to motor controller
-            //newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            //newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * (COUNTS_PER_INCH));
-            //newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
-            newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
-
-            telemetry.addData("Current Position : %7d", robot.Front_Left.getCurrentPosition());
-            telemetry.addData("New Position : %7d", newLeftTopTarget);
-            telemetry.update();
-            sleep(2000);
-            //robot.Back_Left.setTargetPosition(newLeftBottomTarget);
-            //robot.Back_Right.setTargetPosition(newRightBottomTarget);
-            //robot.Front_Right.setTargetPosition(newRightTopTarget);
-            robot.Front_Left.setTargetPosition(newLeftTopTarget);
-
-            // Turn On RUN_TO_POSITION
-            //robot.Back_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Back_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Front_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            //robot.Back_Left.setPower(Math.abs(speed));
-            //robot.Back_Right.setPower(Math.abs(speed));
-            robot.Front_Left.setPower(Math.abs(speed));
-            //robot.Front_Right.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (robot.Front_Left.isBusy() )) {
-
-                // Display it for the driver.
-                //telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path1",  "Running to %7d : ", newLeftTopTarget);
-                telemetry.addData("Path2",  "Running at %7d : ",
-                        robot.Front_Left.getCurrentPosition());
-                //robot.Front_Left.getCurrentPosition();
-                //robot.Front_Right.getCurrentPosition();
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            //robot.Back_Left.setPower(0);
-            //robot.Back_Right.setPower(0);
-            robot.Front_Left.setPower(0);
-            //robot.Front_Right.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.Back_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Back_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-
-        }
-
-    }
-
-    public void encoderDriveWithoutTimeFrontRight ( double speed,
-                                                   double Back_Left_Inches,
-                                                   double Back_Right_Inches,
-                                                   double Front_Right_Inches,
-                                                   double Front_Left_Inches)
-    {
-        int newLeftBottomTarget;
-        int newRightBottomTarget;
-        int newRightTopTarget;
-        int newLeftTopTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-
-            // Determine new target position, and pass to motor controller
-            //newLeftBottomTarget = robot.Back_Left.getCurrentPosition() + (int)(Back_Left_Inches * COUNTS_PER_INCH);
-            //newRightBottomTarget = robot.Back_Right.getCurrentPosition() + (int)(Back_Right_Inches * (COUNTS_PER_INCH));
-            newRightTopTarget = robot.Front_Right.getCurrentPosition() + (int) (Front_Right_Inches * COUNTS_PER_INCH);
-            //newLeftTopTarget = robot.Front_Left.getCurrentPosition() + (int) (Front_Left_Inches * COUNTS_PER_INCH);
-
-            telemetry.addData("Current Position : %7d", robot.Front_Right.getCurrentPosition());
-            telemetry.addData("New Position : %7d", newRightTopTarget);
-            telemetry.update();
-            sleep(2000);
-            //robot.Back_Left.setTargetPosition(newLeftBottomTarget);
-            //robot.Back_Right.setTargetPosition(newRightBottomTarget);
-            robot.Front_Right.setTargetPosition(newRightTopTarget);
-            //robot.Front_Left.setTargetPosition(newLeftTopTarget);
-
-            // Turn On RUN_TO_POSITION
-            //robot.Back_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Back_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //robot.Front_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.Front_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            //robot.Back_Left.setPower(Math.abs(speed));
-            //robot.Back_Right.setPower(Math.abs(speed));
-            //robot.Front_Left.setPower(Math.abs(speed));
-            robot.Front_Right.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (robot.Front_Right.isBusy() )) {
-
-                // Display it for the driver.
-                //telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
-                telemetry.addData("Path1",  "Running to %7d : ", newRightTopTarget);
-                telemetry.addData("Path2",  "Running at %7d : ",
-                        robot.Front_Right.getCurrentPosition());
-                //robot.Front_Left.getCurrentPosition();
-                //robot.Front_Right.getCurrentPosition();
-                telemetry.update();
-            }
-
-            // Stop all motion;
-            //robot.Back_Left.setPower(0);
-            //robot.Back_Right.setPower(0);
-            //robot.Front_Left.setPower(0);
             robot.Front_Right.setPower(0);
 
             // Turn off RUN_TO_POSITION
@@ -942,9 +829,9 @@ public class B1SpinPark extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(75,58);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(0,160);
 
-        static final int REGION_WIDTH = 140;
+        static final int REGION_WIDTH = 155;
         static final int REGION_HEIGHT = 66;
 
         final int THRESHOLD = 25;//150;

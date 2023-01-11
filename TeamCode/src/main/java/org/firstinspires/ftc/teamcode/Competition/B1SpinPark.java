@@ -1,7 +1,7 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Competition;
 
-import static org.firstinspires.ftc.teamcode.zanehardware.COUNTS_PER_INCH;
+import static org.firstinspires.ftc.teamcode.Competition.zanehardware.COUNTS_PER_INCH;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -22,7 +22,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B1SpinParkDelay extends LinearOpMode {
+public class B1SpinPark extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -76,7 +76,6 @@ public class B1SpinParkDelay extends LinearOpMode {
         robot.init(hardwareMap);
 
         waitForStart();
-        sleep(globalvar.delaytime);
 
 
         double FORWARD_SPEED = 0.5;

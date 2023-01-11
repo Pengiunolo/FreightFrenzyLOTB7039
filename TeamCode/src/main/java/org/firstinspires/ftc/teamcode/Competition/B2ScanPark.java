@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B2ScanParkDelay extends LinearOpMode {
+public class B2ScanPark extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -77,7 +77,7 @@ public class B2ScanParkDelay extends LinearOpMode {
 
 
         waitForStart();
-        sleep(globalvar.delaytime);
+
 
         double FORWARD_SPEED = 0.5;
 
@@ -101,7 +101,7 @@ public class B2ScanParkDelay extends LinearOpMode {
             robotMoveToShippingElement(3);
             robot.Slider.setPower(1);
             sleep(400);
-            robot.Slider.setPower(0);
+            robot.Slider.setPower(0.1);
             sleep(200);
 
 
@@ -198,7 +198,7 @@ public class B2ScanParkDelay extends LinearOpMode {
         switch (position) {
             case 1:
                 robot.Slider.setPower(1);
-                sleep(850);
+                sleep(925);
                 robot.Slider.setPower(0.1);
                 sleep(100);
                 encoderDriveWithoutTime(0.5, -20.7, -20.7, -20.7, -20.7);
@@ -213,7 +213,7 @@ public class B2ScanParkDelay extends LinearOpMode {
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(550);
+                sleep(650);
                 robot.Slider.setPower(0.1);
                 sleep(100);
                 encoderDriveWithoutTime(0.5, -20, -20, -20, -20);

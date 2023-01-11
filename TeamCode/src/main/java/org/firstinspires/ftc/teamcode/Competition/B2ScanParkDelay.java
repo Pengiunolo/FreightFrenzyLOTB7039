@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class B1FullAutoDelay extends LinearOpMode {
+public class B2ScanParkDelay extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -92,16 +92,17 @@ public class B1FullAutoDelay extends LinearOpMode {
 
 
 
+
+            double moveLength = 28;
+            int position = 1;
+
+            //spinAndComeBack();
+            //stop();
+            robotMoveToShippingElement(3);
             robot.Slider.setPower(1);
             sleep(400);
             robot.Slider.setPower(0);
             sleep(200);
-            double moveLength = 28;
-            int position = 1;
-
-            spinAndComeBack();
-            //stop();
-            robotMoveToShippingElement(1.75);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -111,29 +112,30 @@ public class B1FullAutoDelay extends LinearOpMode {
             if (positionShippingElement){
                 telemetry.addData("The position is",position);
                 telemetry.update();
-                moveToShippingHub(moveLength, position);
+                position = 2;
+                moveToShippingHub(moveLength - 1, position);
             }
 
             else {
 
-                moveToSecondDuck(8);
+                moveToSecondDuck(10);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
                 sleep(100);
                 if (positionShippingElement){
-                    position = 2;
+                    position = 1;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 8, position);
+                    moveToShippingHub(moveLength - 13, position);
                 }
                 else {
                     position = 3;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 6, position);
+                    moveToShippingHub(moveLength - 14, position);
                 }
             }
 
@@ -182,7 +184,7 @@ public class B1FullAutoDelay extends LinearOpMode {
         //encoderDriveWithoutTime(0.5,4,4,4,4);
         //go forward
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
-        encoderDriveWithoutTime(.8,5,5,5,5);
+        encoderDriveWithoutTime(.8,10,10,10,10);
         sleep(100);
         turn90Right();
         telemetry.addData("Before final move to warehouse","");
@@ -196,10 +198,10 @@ public class B1FullAutoDelay extends LinearOpMode {
         switch (position) {
             case 1:
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(850);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
+                encoderDriveWithoutTime(0.5, -20.7, -20.7, -20.7, -20.7);
                 //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 sleep(50);
                 robot.Intake1.setPower(0.8);
@@ -211,10 +213,10 @@ public class B1FullAutoDelay extends LinearOpMode {
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(450);
+                sleep(550);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(0.5, -20, -20, -20, -20);
 
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);
@@ -229,7 +231,7 @@ public class B1FullAutoDelay extends LinearOpMode {
 
                 //adjust arm position and drop cube
                 double len = 2;
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(0.5, -16, -16, -16, -16);
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
 
 
@@ -247,13 +249,13 @@ public class B1FullAutoDelay extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");
@@ -272,10 +274,40 @@ public class B1FullAutoDelay extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 145;//150;
+        final int THRESHOLD = 140;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
         sleep(1000);
+
+
+        if(avg1 > THRESHOLD){
+            return true;
+        }else{
+            return false;
+        }
+
+
+    }
+    private boolean scanShippingElementTest() {
+
+        while (opModeIsActive()) {
+            sleep(100);
+            int avg1 = pipeline.getAnalysis();
+
+            final int THRESHOLD = 25;//150;
+            telemetry.addData("Scan Threshhold:",avg1);
+            telemetry.update();
+            sleep(2000);
+
+
+        }
+        sleep(100);
+        int avg1 = pipeline.getAnalysis();
+
+        final int THRESHOLD = 25;//150;
+        telemetry.addData("Scan Threshhold:",avg1);
+        telemetry.update();
+        sleep(5000);
 
 
         if(avg1 > THRESHOLD){
@@ -294,6 +326,28 @@ public class B1FullAutoDelay extends LinearOpMode {
         //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
+
+
+    private void strafeLeft(double moveLength) {
+        telemetry.addData("Strafe Left: ", moveLength);
+        telemetry.update();
+        //encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
+        encoderDriveWithTime(0.3,-1,1,-1,1,2);
+    }
+
+    private void strafeRight(double moveLength) {
+        telemetry.addData("Strafe Right: ", moveLength);
+        telemetry.update();
+        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+    }
+
+    private void moveTowards(double moveLength) {
+
+        telemetry.addData("Move Length: ", moveLength);
+        telemetry.update();
+        encoderDriveWithoutTime(0.5, -moveLength, -moveLength, -moveLength, -moveLength);
+
+    }
 
     public void encoderDriveWithoutTime ( double speed,
                                           double Back_Left_Inches,

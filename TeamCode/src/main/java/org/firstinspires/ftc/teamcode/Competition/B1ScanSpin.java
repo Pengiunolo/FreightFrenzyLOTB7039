@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 
 @Autonomous
-public class R1ScanPark extends LinearOpMode {
+public class B1ScanSpin extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -92,18 +92,16 @@ public class R1ScanPark extends LinearOpMode {
 
 
 
-
-            encoderDriveWithoutTime(.5,1,1,1,1);
             robot.Slider.setPower(1);
-            sleep(600);
-            robot.Slider.setPower(0.2);
+            sleep(400);
+            robot.Slider.setPower(0.1);
             sleep(200);
-            double moveLength = 33.5;
+            double moveLength = 28;
             int position = 1;
 
-            //spinAndComeBack();
+            spinAndComeBack();
             //stop();
-            robotMoveToShippingElement(13);
+            robotMoveToShippingElement(1.75);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -140,24 +138,9 @@ public class R1ScanPark extends LinearOpMode {
             }
 
             placeFreightCorrectLocation(position);
-            moveToWarehouse();
+            encoderDriveWithoutTime(.5,5,5,5,5);
+            encoderDriveWithoutTime(0.5,16,-16,16,-16);
             stop();
-
-
-
-            //switch - scan position one and two
-            //if not at one, then go to position two  if not at two, then it is at three
-            //if at one, then continue  if not at one, then go to position two
-            //if at position two, then continue
-
-            //Move forward/strafe toward shipping hub
-            //Place freight in correct location
-            //Finally go to warehouse
-
-            //sleep(5000);
-
-
-
 
         }
     }
@@ -166,13 +149,15 @@ public class R1ScanPark extends LinearOpMode {
 
         encoderDriveWithoutTime(.5,4,-4,4,-4);
         sleep(100);
-        encoderDriveWithoutTime(.3,26,26,26,26);
-        sleep(100);
-        spinLeft(4,.4);
+        encoderDriveWithoutTime(.4,23,23,23,23);
+        sleep(50);
+        encoderDriveWithoutTime(.1,3,3,3,3);
+        sleep(50);
+        spinLeft(3,.4);
         sleep(100);
         encoderDriveWithoutTime(.5,-1,1,1,-1);
         sleep(100);
-        encoderDriveWithoutTime(.5,6,-6,6,-6);
+        encoderDriveWithoutTime(.5,5,-5,5,-5);
         sleep(100);
         encoderDriveWithoutTime(.5,-19,-19,-19,-19);
         sleep(100);
@@ -200,7 +185,7 @@ public class R1ScanPark extends LinearOpMode {
         //encoderDriveWithoutTime(0.5, 48,48,48,48);
         encoderDriveWithoutTime(.8,5,5,5,5);
         sleep(100);
-        turn90Left();
+        turn90Right();
         telemetry.addData("Before final move to warehouse","");
         telemetry.update();
         encoderDriveWithoutTime(.8,65,65,65,65);
@@ -211,47 +196,50 @@ public class R1ScanPark extends LinearOpMode {
 
         switch (position) {
             case 1:
-                //adjust arm position and drop cube
-                double len = 2;
-
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                robot.Slider.setPower(1);
+                sleep(825);
+                robot.Slider.setPower(0.1);
                 sleep(100);
+                encoderDriveWithoutTime(0.5, -11, -11, -11, -11);
+                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                sleep(50);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
-
-
-
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(900);
-                robot.Slider.setPower(0.2);
-
-
-                robot.Sweeper.setPosition(0.4);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
+                sleep(525);
+                robot.Slider.setPower(0.1);
                 sleep(100);
-                //adjust arm position and drop cube
+                encoderDriveWithoutTime(0.5, -10.75, -10.75, -10.75, -10.75);
+
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
                 break;
             default:
-
-
-                robot.Slider.setPower(1);
-                sleep(1300);
-                robot.Slider.setPower(0.1);
-
-                robot.Sweeper.setPosition(0);
-                sleep(50);
-                len = 2;
-                encoderDriveWithoutTime(.5,-len,-len,-len,-len);
-                sleep(100);
                 //adjust arm position and drop cube
-                break;
 
+
+                //adjust arm position and drop cube
+                double len = 2;
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+
+
+                robot.Intake1.setPower(0.8);
+                robot.Intake2.setPower(-0.8);
+                sleep(2000);
+                robot.Intake2.setPower(0);
+                robot.Intake1.setPower(0);
+                break;
 
 
         }
@@ -260,13 +248,13 @@ public class R1ScanPark extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
+        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, -moveLength, moveLength, -moveLength, moveLength);
+        encoderDriveWithoutTime(0.5, moveLength, -moveLength, moveLength, -moveLength);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");
@@ -274,8 +262,7 @@ public class R1ScanPark extends LinearOpMode {
         turn90LeftMore();
         sleep(100);
         //robot.Sweeper.setPosition(0);
-        encoderDriveWithoutTime(0.5,4,-4,4,-4);
-        encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+        //encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
 
         //encoderDriveWithoutTime(.3, -6,6,-6,6);
         //placeFreightCorrectLocation(position);
@@ -300,36 +287,6 @@ public class R1ScanPark extends LinearOpMode {
 
 
     }
-    private boolean scanShippingElementTest() {
-
-        while (opModeIsActive()) {
-            sleep(100);
-            int avg1 = pipeline.getAnalysis();
-
-            final int THRESHOLD = 25;//150;
-            telemetry.addData("Scan Threshhold:",avg1);
-            telemetry.update();
-            sleep(2000);
-
-
-        }
-        sleep(100);
-        int avg1 = pipeline.getAnalysis();
-
-        final int THRESHOLD = 25;//150;
-        telemetry.addData("Scan Threshhold:",avg1);
-        telemetry.update();
-        sleep(5000);
-
-
-        if(avg1 > THRESHOLD){
-            return true;
-        }else{
-            return false;
-        }
-
-
-    }
 
     private void robotMoveToShippingElement(double tmpmoveLength) {
         telemetry.addData("Going toward Shipping element", tmpmoveLength);
@@ -338,28 +295,6 @@ public class R1ScanPark extends LinearOpMode {
         //encoderDriveWithTime(1,-1,-1,-1,-1,10);
     }
 
-
-
-    private void strafeLeft(double moveLength) {
-        telemetry.addData("Strafe Left: ", moveLength);
-        telemetry.update();
-        //encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
-        encoderDriveWithTime(0.3,-1,1,-1,1,2);
-    }
-
-    private void strafeRight(double moveLength) {
-        telemetry.addData("Strafe Right: ", moveLength);
-        telemetry.update();
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
-    }
-
-    private void moveTowards(double moveLength) {
-
-        telemetry.addData("Move Length: ", moveLength);
-        telemetry.update();
-        encoderDriveWithoutTime(0.5, -moveLength, -moveLength, -moveLength, -moveLength);
-
-    }
 
     public void encoderDriveWithoutTime ( double speed,
                                           double Back_Left_Inches,
