@@ -19,8 +19,8 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 
-@Autonomous(name = "Red Full 2")
-public class R2ScanPark extends LinearOpMode {
+@Autonomous(name="Red Park")
+public class RedPark extends LinearOpMode {
 
     private static final long SLEEP_10 = 10;
     private static final long SLEEP_25 = 25;
@@ -77,7 +77,10 @@ public class R2ScanPark extends LinearOpMode {
 
 
         waitForStart();
-
+        encoderDriveWithoutTime(.5,8,-8,8,-8);
+        encoderDriveWithoutTime(.7,100,100,100,100);
+        stop();
+        sleep(globalvar.delaytime);
 
         double FORWARD_SPEED = 0.5;
 
@@ -91,17 +94,16 @@ public class R2ScanPark extends LinearOpMode {
 
 
 
-
-            double moveLength = 35;
+            robot.Slider.setPower(1);
+            sleep(400);
+            robot.Slider.setPower(0);
+            sleep(200);
+            double moveLength = 28;
             int position = 1;
 
-            //spinAndComeBack();
+            spinAndComeBack();
             //stop();
-            robotMoveToShippingElement(12);
-            robot.Slider.setPower(1);
-            sleep(600);
-            robot.Slider.setPower(0.1);
-            sleep(200);
+            robotMoveToShippingElement(6.5);
 
 
             boolean positionShippingElement = scanShippingElement();
@@ -111,30 +113,29 @@ public class R2ScanPark extends LinearOpMode {
             if (positionShippingElement){
                 telemetry.addData("The position is",position);
                 telemetry.update();
-                position = 2;
-                moveToShippingHub(moveLength - 11.5, position);
+                moveToShippingHub(moveLength + 5, position);
             }
 
             else {
 
-                moveToSecondDuck(10.5);
+                moveToSecondDuck(9.5);
                 positionShippingElement = scanShippingElement();
                 telemetry.addData("Is the shipping element present",positionShippingElement);
                 telemetry.update();
                 sleep(100);
                 if (positionShippingElement){
-                    position = 1;
+                    position = 2;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 19.5, position);
+                    moveToShippingHub(moveLength - 4.5, position);
                 }
                 else {
                     position = 3;
                     telemetry.addData("The position is",position);
                     telemetry.update();
 
-                    moveToShippingHub(moveLength - 19.5, position);
+                    moveToShippingHub(moveLength - 1, position);
                 }
             }
 
@@ -177,7 +178,7 @@ public class R2ScanPark extends LinearOpMode {
         spinRight(2.5,.4);
         sleep(50);
        //strafes left
-        encoderDriveWithoutTime(.5,10.5,-10.5,10.5,-10.5);
+        encoderDriveWithoutTime(.5,11.5,-11.5,11.5,-11.5);
         encoderDriveWithoutTime(.7,-6,-6,-6,-6);
         turn90LeftMore();
         turn90LeftMore();
@@ -216,7 +217,6 @@ public class R2ScanPark extends LinearOpMode {
         encoderDriveWithoutTime(.8,8,8,8,8);
         sleep(100);
         turn90Left();
-        encoderDriveWithoutTime(.4,-8,8,-8,8);
         telemetry.addData("Before final move to warehouse","");
         telemetry.update();
         encoderDriveWithoutTime(.8,65,65,65,65);
@@ -229,7 +229,7 @@ public class R2ScanPark extends LinearOpMode {
             case 1:
                 //adjust arm position and drop cube
                 double len = 2;
-                encoderDriveWithoutTime(0.5, -8, -8, -8, -8);
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
 
 
@@ -243,7 +243,7 @@ public class R2ScanPark extends LinearOpMode {
                 break;
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(550);
+                sleep(450);
                 robot.Slider.setPower(0.1);
                 sleep(100);
                 encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
@@ -259,10 +259,10 @@ public class R2ScanPark extends LinearOpMode {
                 break;
             default:
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(800);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -8, -8, -8, -8);
+                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);
                 robot.Intake2.setPower(-0.8);
@@ -280,13 +280,13 @@ public class R2ScanPark extends LinearOpMode {
 
     private void moveToSecondDuck(double moveLength) {
 
-        encoderDriveWithoutTime(0.3, moveLength, -moveLength, moveLength, -moveLength);
+        encoderDriveWithoutTime(0.3, -moveLength, moveLength, -moveLength, moveLength);
         //encoderDriveWithTime(0.3,1,1,1,1,2);
     }
 
     private void moveToShippingHub(double moveLength, int position) {
 
-        encoderDriveWithoutTime(0.5, moveLength + 2, -moveLength - 2, moveLength + 2, -moveLength - 2);
+        encoderDriveWithoutTime(0.5, -moveLength - 2, moveLength + 2, -moveLength - 2, moveLength + 2);
         sleep(100);
         turn90LeftMore();
         telemetry.addData("Its working", "");

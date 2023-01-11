@@ -93,7 +93,7 @@ public class R1ScanSpin extends LinearOpMode {
 
             robot.Slider.setPower(1);
             sleep(400);
-            robot.Slider.setPower(0);
+            robot.Slider.setPower(0.1);
             sleep(200);
             double moveLength = 28;
             int position = 1;
@@ -137,6 +137,9 @@ public class R1ScanSpin extends LinearOpMode {
             }
 
             placeFreightCorrectLocation(position);
+            encoderDriveWithoutTime(.5,5.75,5.75,5.75,5.75);
+            encoderDriveWithoutTime(0.5,-55,55,-55,55);
+            encoderDriveWithoutTime(.3,-5,-5,-5,-5);
             stop();
 
 
@@ -225,8 +228,8 @@ public class R1ScanSpin extends LinearOpMode {
             case 1:
                 //adjust arm position and drop cube
                 double len = 2;
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                encoderDriveWithoutTime(0.5, -10, -10, -10, -10);
+                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
 
 
                 robot.Intake1.setPower(0.8);
@@ -239,12 +242,12 @@ public class R1ScanSpin extends LinearOpMode {
                 break;
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(450);
+                sleep(520);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(0.5, -10, -10, -10, -10);
 
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);
                 robot.Intake2.setPower(-0.8);
                 sleep(2000);
@@ -255,11 +258,11 @@ public class R1ScanSpin extends LinearOpMode {
                 break;
             default:
                 robot.Slider.setPower(1);
-                sleep(800);
+                sleep(900);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
-                encoderDriveWithoutTime(.4,-3,-3,-3,-3);
+                encoderDriveWithoutTime(0.5, -10, -10, -10, -10);
+                //encoderDriveWithoutTime(.4,-1,-1,-1,-1);
                 robot.Intake1.setPower(0.8);
                 robot.Intake2.setPower(-0.8);
                 sleep(2000);

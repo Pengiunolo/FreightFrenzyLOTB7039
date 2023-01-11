@@ -94,7 +94,7 @@ public class B1ScanSpin extends LinearOpMode {
 
             robot.Slider.setPower(1);
             sleep(400);
-            robot.Slider.setPower(0);
+            robot.Slider.setPower(0.1);
             sleep(200);
             double moveLength = 28;
             int position = 1;
@@ -138,6 +138,8 @@ public class B1ScanSpin extends LinearOpMode {
             }
 
             placeFreightCorrectLocation(position);
+            encoderDriveWithoutTime(.5,5,5,5,5);
+            encoderDriveWithoutTime(0.5,16,-16,16,-16);
             stop();
 
         }
@@ -195,10 +197,10 @@ public class B1ScanSpin extends LinearOpMode {
         switch (position) {
             case 1:
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(825);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
+                encoderDriveWithoutTime(0.5, -11, -11, -11, -11);
                 //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 sleep(50);
                 robot.Intake1.setPower(0.8);
@@ -210,10 +212,10 @@ public class B1ScanSpin extends LinearOpMode {
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(450);
+                sleep(525);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(0.5, -10.75, -10.75, -10.75, -10.75);
 
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);
@@ -271,7 +273,7 @@ public class B1ScanSpin extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 145;//150;
+        final int THRESHOLD = 150;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
         sleep(1000);

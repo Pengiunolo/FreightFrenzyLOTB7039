@@ -49,7 +49,7 @@ public class CompetitionTeleop extends LinearOpMode {
             } else if (gamepad1.y) {
                 robot.Slider.setPower(0.7);
             } else {
-                robot.Slider.setPower(0.05);
+                robot.Slider.setPower(0.1);
 
             }
             //Slider home

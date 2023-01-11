@@ -36,7 +36,7 @@ public class B1ScanSpinDelay extends LinearOpMode {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 3.77953 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH = 45;
-            //first hundred digits of pi fr more accuracy
+    //first hundred digits of pi fr more accuracy
 
 
     /**
@@ -77,8 +77,9 @@ public class B1ScanSpinDelay extends LinearOpMode {
 
 
         waitForStart();
+        sleep(1000);
 
-        sleep(globalvar.delaytime);
+
         double FORWARD_SPEED = 0.5;
 
 
@@ -94,7 +95,7 @@ public class B1ScanSpinDelay extends LinearOpMode {
 
             robot.Slider.setPower(1);
             sleep(400);
-            robot.Slider.setPower(0);
+            robot.Slider.setPower(0.1);
             sleep(200);
             double moveLength = 28;
             int position = 1;
@@ -138,6 +139,9 @@ public class B1ScanSpinDelay extends LinearOpMode {
             }
 
             placeFreightCorrectLocation(position);
+            encoderDriveWithoutTime(.5,5.75,5.75,5.75,5.75);
+            encoderDriveWithoutTime(0.5,55,-55,55,-55);
+            encoderDriveWithoutTime(.3,-13,-13,-13,-13);
             stop();
 
         }
@@ -195,10 +199,10 @@ public class B1ScanSpinDelay extends LinearOpMode {
         switch (position) {
             case 1:
                 robot.Slider.setPower(1);
-                sleep(750);
+                sleep(875);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.7, -10.7, -10.7, -10.7);
+                encoderDriveWithoutTime(0.5, -11, -11, -11, -11);
                 //encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 sleep(50);
                 robot.Intake1.setPower(0.8);
@@ -210,10 +214,10 @@ public class B1ScanSpinDelay extends LinearOpMode {
 
             case 2:
                 robot.Slider.setPower(0.7);
-                sleep(450);
+                sleep(525);
                 robot.Slider.setPower(0.1);
                 sleep(100);
-                encoderDriveWithoutTime(0.5, -10.5, -10.5, -10.5, -10.5);
+                encoderDriveWithoutTime(0.5, -10.75, -10.75, -10.75, -10.75);
 
                 encoderDriveWithoutTime(.4,-3,-3,-3,-3);
                 robot.Intake1.setPower(0.8);
@@ -271,7 +275,7 @@ public class B1ScanSpinDelay extends LinearOpMode {
         sleep(1000);
         int avg1 = pipeline.getAnalysis();
 
-        final int THRESHOLD = 145;//150;
+        final int THRESHOLD = 150;//150;
         telemetry.addData("Scan Threshhold:",avg1);
         telemetry.update();
         sleep(1000);
@@ -365,11 +369,11 @@ public class B1ScanSpinDelay extends LinearOpMode {
 
     }
     public void encoderDriveWithTime(double speed,
-                             double Back_Left_Inches,
-                             double Back_Right_Inches,
-                             double Front_Right_Inches,
-                             double Front_Left_Inches,
-                             double timeoutS) {
+                                     double Back_Left_Inches,
+                                     double Back_Right_Inches,
+                                     double Front_Right_Inches,
+                                     double Front_Left_Inches,
+                                     double timeoutS) {
         int newLeftBottomTarget;
         int newRightBottomTarget;
         int newRightTopTarget;
@@ -407,8 +411,8 @@ public class B1ScanSpinDelay extends LinearOpMode {
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS)) {
-                    //&&
-                    //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
+                //&&
+                //(robot.Back_Left.isBusy() && robot.Back_Right.isBusy() && robot.Front_Left.isBusy() && robot.Front_Right.isBusy())) {
 
                 // Display it for the driver.
                 /*telemetry.addData("Path1",  "Running to %7d :%7d", newLeftBottomTarget,newRightBottomTarget,newLeftTopTarget,newRightTopTarget);
@@ -440,8 +444,8 @@ public class B1ScanSpinDelay extends LinearOpMode {
         }
     }
     public void encoderDriveWithTimeForward(
-                                     double timeoutS,
-                                     double speed) {
+            double timeoutS,
+            double speed) {
 
 
         // Ensure that the opmode is still active
